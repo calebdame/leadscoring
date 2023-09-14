@@ -80,8 +80,8 @@ with st.form("Answers"):
         #webbrowser.open("https://www.google.com")
         # sleep(0.75)
         if int_score > 45:
-            st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {intscore}")
+            st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {int_score}")
         else:
-            st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {intscore}\nYour score was pretty bad!")
+            st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {int_score}\nYour score was pretty bad!")
         sleep(5)
         nav_to("https://www.google.com")
