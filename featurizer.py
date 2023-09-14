@@ -1,6 +1,7 @@
 import numpy as np
 import nltk
 nltk.download('stopwords')
+nltk.download('vader_lexicon')
 from nltk.sentiment import SentimentIntensityAnalyzer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
