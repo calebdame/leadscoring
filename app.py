@@ -32,14 +32,14 @@ money_qs = [
     ""
 ]
 
-def nav_to(url):
-    nav_script = """
-        <meta http-equiv="refresh" content="0; url='%s'">
-    """ % (url)
-    st.write(nav_script, unsafe_allow_html=True)
+# def nav_to(url):
+#     nav_script = """
+#         <meta http-equiv="refresh" content="0; url='%s'">
+#     """ % (url)
+#     st.write(nav_script, unsafe_allow_html=True)
 
 # Define your survey fields
-st.title("Jay Shetty Meeting Sign-Up Form")
+st.title("Jay Shetty Coaching Enrollment")
 
 with st.form("Answers"):
     first_name = st.text_input(qs[0])
@@ -86,4 +86,5 @@ with st.form("Answers"):
             st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {int_score}\nYour score was pretty bad!")
         sleep(5)
         #nav_to("https://www.google.com")
-        components.iframe("https://www.google.com")
+        #components.iframe("https://www.google.com")
+        st.markdown("https://www.google.com",unsafe_allow_html=True)
