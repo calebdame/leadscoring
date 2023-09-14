@@ -85,6 +85,3 @@ with st.form("Answers"):
             st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {int_score}\nYour score was pretty bad!")
         sleep(5)
         nav_to("https://www.google.com")
-from link_button import link_button
-
-link_button('Click Me!', 'https://docs.streamlit.io/en/stable/')
