@@ -62,7 +62,7 @@ with st.form("Answers"):
     # A button to submit the form
     if st.form_submit_button("Submit & Book your Interview on our Calendar"):
         # Display a message upon submission (you might want to do something more useful with the data)
-        st.success("Thank you for submitting the survey!\nPlease wait while you're redirected")
+        
         features = [
             f"{first_name} {last_name}", phone_number, home_country, email, occupation,
             long_question_response, "cash" in has_money, read_brochure, datetime.datetime.now()
@@ -78,5 +78,10 @@ with st.form("Answers"):
         # with open('survey_responses.txt', 'a') as f:
         #     f.write(f"{first_name},{last_name},{phone_number},{home_country},{occupation},{long_question_response},{read_brochure}\n")
         #webbrowser.open("https://www.google.com")
-        sleep(0.75)
+        # sleep(0.75)
+        if int_score > 45:
+            st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {intscore}")
+        else:
+            st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {intscore}\nYour score was pretty bad!")
+        sleep(5)
         nav_to("https://www.google.com")
