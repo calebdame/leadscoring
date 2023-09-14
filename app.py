@@ -6,6 +6,7 @@ from featurizer import *
 from time import time, sleep
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 hide_st_style = """
             <style>
@@ -84,4 +85,5 @@ with st.form("Answers"):
         else:
             st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {int_score}\nYour score was pretty bad!")
         sleep(5)
-        nav_to("https://www.google.com")
+        #nav_to("https://www.google.com")
+        components.iframe("https://www.google.com")
