@@ -38,9 +38,12 @@ money_qs = [
 #     """ % (url)
 #     st.write(nav_script, unsafe_allow_html=True)
 
+url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
+url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
+
 # Define your survey fields
 st.title("Jay Shetty Coaching Enrollment")
-
+st.markdown("Tell us about yourself, and we will send you a calendar invite to chat!")
 with st.form("Answers"):
     first_name = st.text_input(qs[0])
     last_name = st.text_input(qs[1])
@@ -61,7 +64,7 @@ with st.form("Answers"):
     read_brochure = st.checkbox(qs[8])
 
     # A button to submit the form
-    if st.form_submit_button("Submit & Book your Interview on our Calendar"):
+    if st.form_submit_button("Sign Up"):
         # Display a message upon submission (you might want to do something more useful with the data)
         
         features = [
@@ -80,11 +83,11 @@ with st.form("Answers"):
         #     f.write(f"{first_name},{last_name},{phone_number},{home_country},{occupation},{long_question_response},{read_brochure}\n")
         #webbrowser.open("https://www.google.com")
         # sleep(0.75)
-        if int_score > 45:
-            st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {int_score}")
-        else:
-            st.success(f"Thank you for submitting the survey!\nPlease wait while you're redirected\nour scores are {score} and {int_score}\nYour score was pretty bad!")
-        sleep(5)
+        st.success(f"Thank you for submitting the survey!\nThe probability of conversion is estimated to be {round(score*100,2)}\nYou are more likely to convert than {int_score}% of other leads!\nFind your calendar invite below:")
+        
         #nav_to("https://www.google.com")
         #components.iframe("https://www.google.com")
-        st.markdown("https://www.google.com",unsafe_allow_html=True)
+        if int_score > 40:
+            st.markdown(f"[Click Here]({url1})",unsafe_allow_html=True)
+        else:
+            st.markdown(f"[Click Here]({url2})",unsafe_allow_html=True)
