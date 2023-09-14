@@ -2,3 +2,5 @@ scikit-learn==0.24.2
 nltk
 numpy
 streamlit
+gspread
+oauth2client
