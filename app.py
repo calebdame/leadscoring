@@ -70,11 +70,4 @@ with st.form("Answers"):
         )
         feats = f.generate_feature_dict()
         score, int_score = model.predict([feats])
-        print(score, int_score)
-        print(features)
-        # You could add code here to save the data, such as writing it to a file or database
-        # with open('survey_responses.txt', 'a') as f:
-        #     f.write(f"{first_name},{last_name},{phone_number},{home_country},{occupation},{long_question_response},{read_brochure}\n")
-        #webbrowser.open("https://www.google.com")
-        # sleep(0.75)
         st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > 40 else url2})", icon="✅")
