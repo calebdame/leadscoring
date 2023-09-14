@@ -1,4 +1,11 @@
 streamlit==1.22
+gspread>=5.8.0
+gspread-pandas>=3.2.2
+gspread-dataframe>=3.3.0
+gspread-formatting>=1.1.2
+duckdb>=0.7.1
+sql-metadata>=2.7.0
+validators>=0.20.0
 git+https://github.com/streamlit/gsheets-connection
 pandasql
 scikit-learn==0.24.2
