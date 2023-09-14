@@ -32,12 +32,6 @@ money_qs = [
     ""
 ]
 
-# def nav_to(url):
-#     nav_script = """
-#         <meta http-equiv="refresh" content="0; url='%s'">
-#     """ % (url)
-#     st.write(nav_script, unsafe_allow_html=True)
-
 url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
 url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
 
@@ -83,11 +77,4 @@ with st.form("Answers"):
         #     f.write(f"{first_name},{last_name},{phone_number},{home_country},{occupation},{long_question_response},{read_brochure}\n")
         #webbrowser.open("https://www.google.com")
         # sleep(0.75)
-        st.success(f"Thank you for submitting the survey!\n\nThe probability of conversion is estimated to be {round(score*100,2)}\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below.", icon="✅")
-        
-        #nav_to("https://www.google.com")
-        #components.iframe("https://www.google.com")
-        if int_score > 40:
-            st.markdown(f"[Click Here]({url1})",unsafe_allow_html=True)
-        else:
-            st.markdown(f"[Click Here]({url2})",unsafe_allow_html=True)
+        st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > 40 else url2})", icon="✅")
