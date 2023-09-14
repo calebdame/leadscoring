@@ -71,3 +71,11 @@ with st.form("Answers"):
         feats = f.generate_feature_dict()
         score, int_score = model.predict([feats])
         st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > 40 else url2})", icon="✅")
+
+
+from streamlit_gsheets import GSheetsConnection
+conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+data = conn.read(worksheet="Sheet1")
+st.dataframe(data)
+
+
