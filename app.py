@@ -83,7 +83,7 @@ with st.form("Answers"):
         #     f.write(f"{first_name},{last_name},{phone_number},{home_country},{occupation},{long_question_response},{read_brochure}\n")
         #webbrowser.open("https://www.google.com")
         # sleep(0.75)
-        st.success(f"Thank you for submitting the survey!\nThe probability of conversion is estimated to be {round(score*100,2)}\nYou are more likely to convert than {int_score}% of other leads!\nFind your calendar invite below:")
+        st.success(f"Thank you for submitting the survey!\n\nThe probability of conversion is estimated to be {round(score*100,2)}\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below.", icon="✅")
         
         #nav_to("https://www.google.com")
         #components.iframe("https://www.google.com")
