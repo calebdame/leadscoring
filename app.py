@@ -73,8 +73,27 @@ with st.form("Answers"):
         score, int_score = model.predict([feats])
         st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > 40 else url2})", icon="✅")
 
-# st.success(st.experimental_get_query_params())
+st.success(st.experimental_get_query_params())
 # from streamlit_gsheets import GSheetsConnection
 # conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 # data = conn.read(worksheet="Sheet1")
 # st.dataframe(data)
+
+from streamlit.runtime.scriptrunner import get_script_run_ctx
+
+def get_remote_ip() -> str:
+
+    try:
+        ctx = get_script_run_ctx()
+        if ctx is None:
+            return None
+
+        session_info = st.runtime.get_instance().get_client(ctx.session_id)
+        if session_info is None:
+            return None
+    except:
+        return None
+
+    return session_info.request.remote_ip
+
+st.markdown(f"The remote ip is {get_remote_ip()}")
