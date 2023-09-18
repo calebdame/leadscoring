@@ -8,6 +8,23 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import streamlit as st
 import streamlit.components.v1 as components
+from streamlit.runtime.scriptrunner import get_script_run_ctx
+
+def get_remote_ip() -> str:
+    try:
+        ctx = get_script_run_ctx()
+        if ctx is None:
+            return None
+        session_info = st.runtime.get_instance().get_client(ctx.session_id)
+        if session_info is None:
+            return None
+    except:
+        return None
+    return session_info.request.remote_ip
+
+page_name = "Jay Shetty Sign Up"
+page_title = "Jay Shetty Coaching Enrollment"
+page_favicon = "https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-mono/256/Rightwards-Hand-Default-icon.png"
 
 hide_st_style = """
             <style>
@@ -16,6 +33,8 @@ hide_st_style = """
             header {visibility: hidden;}
             </style>
             """
+
+st.set_page_config(page_title=page_name, page_icon = page_favicon)
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 qs = [
@@ -37,7 +56,7 @@ url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
 url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
 
 # Define your survey fields
-st.title("Jay Shetty Coaching Enrollment")
+st.title(page_title)
 st.markdown("Tell us about yourself, and we will send you a calendar invite to chat!")
 with st.form("Answers"):
     first_name = st.text_input(qs[0])
@@ -73,27 +92,12 @@ with st.form("Answers"):
         score, int_score = model.predict([feats])
         st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > 40 else url2})", icon="✅")
 
-st.success(st.experimental_get_query_params())
+# st.success(st.experimental_get_query_params())
 # from streamlit_gsheets import GSheetsConnection
 # conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 # data = conn.read(worksheet="Sheet1")
 # st.dataframe(data)
 
-from streamlit.runtime.scriptrunner import get_script_run_ctx
 
-def get_remote_ip() -> str:
 
-    try:
-        ctx = get_script_run_ctx()
-        if ctx is None:
-            return None
-
-        session_info = st.runtime.get_instance().get_client(ctx.session_id)
-        if session_info is None:
-            return None
-    except:
-        return None
-
-    return session_info.request.remote_ip
-
-st.markdown(f"The remote ip is {get_remote_ip()}")
+# st.markdown(f"The remote ip is {get_remote_ip()}")
