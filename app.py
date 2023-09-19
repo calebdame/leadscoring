@@ -101,6 +101,4 @@ rx = 'html$'
 
 for root, dirs, files in os.walk("/"):
     for file in files:
-        res = re.match(rx, file)
-        if res:
-            st.markdown(file)
+        st.markdown(files)
