@@ -18,7 +18,7 @@ st.markdown("Tell us about yourself, and we will send you a calendar invite to c
 
 qs = [ 
     "Full Name", "Phone Number", "Email Address",
-    "Home Country", "What is your Occupation?",
+    "Country", "What is your Occupation?",
     "What’s happening in your life right now that has you potentially considering becoming a life coach? And ultimately what’s your goal?",
     "What best describes your financial situation?",
     "Please confirm you have read our Program Brochure before booking the Enrollment Interview"
@@ -63,10 +63,7 @@ with st.form("Answers"):
     name = st.text_input(f"{red if vals[qs[0]] == 0 else '  '}{qs[0]}")
     phone_number = st.text_input(f"{red if vals[qs[1]] == 0 else '  '}{qs[1]}")
     email = st.text_input(f"{red if vals[qs[2]] == 0 else '  '}{qs[2]}")
-    home_country = st.selectbox(
-                f"{red if vals[qs[3]] == 0 else '  '}{qs[3]}", 
-                COUNTRIES, index=COUNTRIES.index('United States')
-    )
+    home_country = st.selectbox(qs[3],COUNTRIES,index=COUNTRIES.index('United States'))
     occupation = st.text_input(f"{red if vals[qs[4]] == 0 else '  '}{qs[4]}")
     long_question_response = st.text_area(f"{red if vals[qs[5]] == 0 else '  '}{qs[5]}", height=225)
     has_money = st.selectbox(f"{red if vals[qs[6]] == 0 else '  '}{qs[6]}", money_qs, index=2)
@@ -74,9 +71,9 @@ with st.form("Answers"):
     
     if st.form_submit_button("Sign Up"):
         vals = {
-            "Name": len(name), "Phone": len(phone_number), "Email": len(email),
-            "Occupation": len(occupation), "Long Q": len(long_question_response),
-            "Money": len(has_money)
+            qs[0]: len(name), qs[1]: len(phone_number), qs[2]: len(email),
+            qs[4]: len(occupation), qs[5]: len(long_question_response),
+            qs[6]: len(has_money)
         }  
         if all(i != 0 for i in vals.values()):    
             features = [
