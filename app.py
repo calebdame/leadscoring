@@ -56,18 +56,17 @@ def get_remote_ip() -> str:
 vals = {
     qs[0]: 1, qs[1]: 1, qs[2]: 1, qs[4]: 1, qs[5]: 1, qs[6]: 1, qs[7]: 1
 }
-red = ":red[**\***] "
 
 with st.form("Answers"):
             
-    name = st.text_input(f"{red if vals[qs[0]] == 0 else '  '}{qs[0]}")
-    phone_number = st.text_input(f"{red if vals[qs[1]] == 0 else '  '}{qs[1]}")
-    email = st.text_input(f"{red if vals[qs[2]] == 0 else '  '}{qs[2]}")
+    name = st.text_input(f"{qs[0]}")
+    phone_number = st.text_input(f"{qs[1]}")
+    email = st.text_input(f"{qs[2]}")
     home_country = st.selectbox(qs[3],COUNTRIES,index=COUNTRIES.index('United States'))
-    occupation = st.text_input(f"{red if vals[qs[4]] == 0 else '  '}{qs[4]}")
-    long_question_response = st.text_area(f"{red if vals[qs[5]] == 0 else '  '}{qs[5]}", height=225)
-    has_money = st.selectbox(f"{red if vals[qs[6]] == 0 else '  '}{qs[6]}", money_qs, index=2)
-    read_brochure = st.selectbox(f"{red if vals[qs[7]] == 0 else '  '}{qs[7]}", b_qs, index=2)
+    occupation = st.text_input(f"{qs[4]}")
+    long_question_response = st.text_area(f"{qs[5]}", height=225)
+    has_money = st.selectbox(f"{qs[6]}", money_qs, index=2)
+    read_brochure = st.selectbox(f"{qs[7]}", b_qs, index=2)
     
     if st.form_submit_button("Sign Up"):
         vals = {
@@ -87,7 +86,13 @@ with st.form("Answers"):
             feats = f.generate_feature_dict()
             score, int_score = model.predict([feats])
             st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > 40 else url2})", icon="✅")
-
+        else:
+            error =  "Please fill the following fields:"
+            for name, count in vals.items():
+                if count == 0:
+                    error = error + f"\n{name}"
+            st.error(error, icon="🚨")
+            
 # st.success(st.experimental_get_query_params())
 # from streamlit_gsheets import GSheetsConnection
 # conn = st.experimental_connection("gsheets", type=GSheetsConnection)
