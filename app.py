@@ -90,15 +90,3 @@ with st.form("Answers"):
 # conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 # data = conn.read(worksheet="Sheet1")
 # st.dataframe(data)
-
-
-
-# st.markdown(f"The remote ip is {get_remote_ip()}")
-import os
-import re
-
-rx = 'html$'
-
-for root, dirs, files in os.walk("/"):
-    for file in files:
-        st.markdown(files)
