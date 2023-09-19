@@ -56,7 +56,7 @@ def get_remote_ip() -> str:
 vals = {
     qs[0]: 1, qs[1]: 1, qs[2]: 1, qs[4]: 1, qs[5]: 1, qs[6]: 1, qs[7]: 1
 }
-red = "<span style='color:red'>**&#42;**</span> "
+red = ":red[**\***] "
 
 with st.form("Answers"):
             
