@@ -54,7 +54,7 @@ def get_remote_ip() -> str:
     return session_info.request.remote_ip
 
 vals = {
-    qs[0]: 1, qs[1]: 1, qs[2]: 1, qs[4]: 1, qs[5]: 1, qs[6]: 1
+    qs[0]: 1, qs[1]: 1, qs[2]: 1, qs[4]: 1, qs[5]: 1, qs[6]: 1, qs[7]: 1
 }
 red = "<span style='color:red'>**&#42;**</span> "
 
@@ -73,7 +73,7 @@ with st.form("Answers"):
         vals = {
             qs[0]: len(name), qs[1]: len(phone_number), qs[2]: len(email),
             qs[4]: len(occupation), qs[5]: len(long_question_response),
-            qs[6]: len(has_money)
+            qs[6]: len(has_money), qs[7]: len(read_brochure)
         }  
         if all(i != 0 for i in vals.values()):    
             features = [
