@@ -29,6 +29,9 @@ money_qs = [
     "I don’t have much money right now or access to credit",
     ""
 ]
+b_qs = [
+    "Yes", "No", ""
+]
 
 url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
 url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
@@ -50,11 +53,13 @@ def get_remote_ip() -> str:
         return None
     return session_info.request.remote_ip
 
-
+vals = {
+    qs[0]: 0, qs[1]: 0, qs[2]: 0, qs[4]: 0, qs[5]: 0, qs[6]: 0
+}
 
 with st.form("Answers"):
             
-    name = st.text_input(qs[0])
+    name = st.text_input(qs[0] + " **:\*[colored red]**")
     phone_number = st.text_input(qs[1])
     email = st.text_input(qs[2])
 
@@ -69,7 +74,7 @@ with st.form("Answers"):
     has_money = st.selectbox(qs[6], money_qs, index=2)
 
     # A true/false checkbox
-    read_brochure = st.checkbox(qs[7])
+    read_brochure = st.selectbox(qs[7] + "", b_qs, index=2)
 
     # A button to submit the form
     if st.form_submit_button("Sign Up"):
@@ -79,10 +84,11 @@ with st.form("Answers"):
             "Occupation": len(occupation), "Long Q": len(long_question_response),
             "Money": len(has_money)
         }  
-        if not any(i > 0 for i in vals.values()):    
+        if all(i != 0 for i in vals.values()):    
             features = [
                 name, phone_number, home_country, email, occupation,
-                long_question_response, "cash" in has_money, read_brochure, datetime.datetime.now()
+                long_question_response, int("cash" in has_money), 
+                int("Yes" in read_brochure), datetime.datetime.now()
             ]
             f = Featurizer(
                 *features
