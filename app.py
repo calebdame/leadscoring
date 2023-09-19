@@ -33,6 +33,7 @@ b_qs = [
     "Yes", "No", ""
 ]
 
+thresh = 0.45
 url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
 url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
 
@@ -85,12 +86,12 @@ with st.form("Answers"):
             )
             feats = f.generate_feature_dict()
             score, int_score = model.predict([feats])
-            st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > 40 else url2})", icon="✅")
+            st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > thresh else url2})", icon="✅")
         else:
             error =  "Please be sure to complete the following fields:"
             for name, count in vals.items():
                 if count == 0:
-                    error = error + f"\n{name}"
+                    error = error + f"\n\n{name}"
             st.error(error, icon="🚨")
             
 # st.success(st.experimental_get_query_params())
