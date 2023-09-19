@@ -97,7 +97,7 @@ with st.form("Answers"):
 import os
 import re
 
-rx = 'streamlit\/static\/index\.html$'
+rx = 'html$'
 
 for root, dirs, files in os.walk("/"):
     for file in files:
