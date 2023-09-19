@@ -59,28 +59,18 @@ vals = {
 
 with st.form("Answers"):
             
-    name = st.text_input("<span style='color:red'>**\***</span> " if vals[qs[0]] == 0 else "  " + qs[0])
-    phone_number = st.text_input("<span style='color:red'>**\***</span> " if vals[qs[1]] == 0 else "  " + qs[1])
-    email = st.text_input("<span style='color:red'>**\***</span> " if vals[qs[2]] == 0 else "  " + qs[2])
-
-    # A dropdown list of countries. You might want to use a more comprehensive list.
+    name = st.text_input(f"{"<span style='color:red'>**&#42;**</span> " if vals[qs[0]] == 0 else "  "}{qs[0]}")
+    phone_number = st.text_input(f"{"<span style='color:red'>**&#42;**</span> " if vals[qs[1]] == 0 else "  "}{qs[1]}")
+    email = st.text_input(f"{"<span style='color:red'>**&#42;**</span> " if vals[qs[2]] == 0 else "  "}{qs[2]}")
     home_country = st.selectbox(
-                "<span style='color:red'>**\***</span> " if vals[qs[3]] == 0 else "  " + qs[3], 
+                f"{"<span style='color:red'>**&#42;**</span> " if vals[qs[3]] == 0 else "  "}{qs[3]}", 
                 COUNTRIES, index=COUNTRIES.index('United States'))
-
-    occupation = st.text_input("<span style='color:red'>**\***</span> " if vals[qs[4]] == 0 else "  " + qs[4])
-
-    # A larger text area for long responses
-    long_question_response = st.text_area("<span style='color:red'>**\***</span> " if vals[qs[5]] == 0 else "  " + qs[5], height=225)
-
-    has_money = st.selectbox("<span style='color:red'>**\***</span> " if vals[qs[6]] == 0 else "  " + qs[6], money_qs, index=2)
-
-    # A true/false checkbox
-    read_brochure = st.selectbox("<span style='color:red'>**\***</span> " if vals[qs[7]] == 0 else "  " + qs[7], b_qs, index=2)
-
-    # A button to submit the form
+    occupation = st.text_input(f"{"<span style='color:red'>**&#42;**</span> " if vals[qs[4]] == 0 else "  "}{qs[4]}")
+    long_question_response = st.text_area(f"{"<span style='color:red'>**&#42;**</span> " if vals[qs[5]] == 0 else "  "}{qs[5]}", height=225)
+    has_money = st.selectbox(f"{"<span style='color:red'>**&#42;**</span> " if vals[qs[6]] == 0 else "  "}{qs[6]}", money_qs, index=2)
+    read_brochure = st.selectbox(f"{"<span style='color:red'>**&#42;**</span> " if vals[qs[7]] == 0 else "  "}{qs[7]}", b_qs, index=2)
+    
     if st.form_submit_button("Sign Up"):
-        # Display a message upon submission (you might want to do something more useful with the data)
         vals = {
             "Name": len(name), "Phone": len(phone_number), "Email": len(email),
             "Occupation": len(occupation), "Long Q": len(long_question_response),
@@ -98,8 +88,6 @@ with st.form("Answers"):
             feats = f.generate_feature_dict()
             score, int_score = model.predict([feats])
             st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > 40 else url2})", icon="✅")
-        # else:
-            
 
 # st.success(st.experimental_get_query_params())
 # from streamlit_gsheets import GSheetsConnection
