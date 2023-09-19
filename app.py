@@ -54,27 +54,29 @@ def get_remote_ip() -> str:
     return session_info.request.remote_ip
 
 vals = {
-    qs[0]: 0, qs[1]: 0, qs[2]: 0, qs[4]: 0, qs[5]: 0, qs[6]: 0
+    qs[0]: 1, qs[1]: 1, qs[2]: 1, qs[4]: 1, qs[5]: 1, qs[6]: 1
 }
 
 with st.form("Answers"):
             
-    name = st.text_input(qs[0] + " **:\*[colored red]**")
-    phone_number = st.text_input(qs[1])
-    email = st.text_input(qs[2])
+    name = st.text_input("<span style='color:red'>**\***</span> " if vals[qs[0]] == 0 else "  " + qs[0])
+    phone_number = st.text_input("<span style='color:red'>**\***</span> " if vals[qs[1]] == 0 else "  " + qs[1])
+    email = st.text_input("<span style='color:red'>**\***</span> " if vals[qs[2]] == 0 else "  " + qs[2])
 
     # A dropdown list of countries. You might want to use a more comprehensive list.
-    home_country = st.selectbox(qs[3], COUNTRIES, index=COUNTRIES.index('United States'))
+    home_country = st.selectbox(
+                "<span style='color:red'>**\***</span> " if vals[qs[3]] == 0 else "  " + qs[3], 
+                COUNTRIES, index=COUNTRIES.index('United States'))
 
-    occupation = st.text_input(qs[4])
+    occupation = st.text_input("<span style='color:red'>**\***</span> " if vals[qs[4]] == 0 else "  " + qs[4])
 
     # A larger text area for long responses
-    long_question_response = st.text_area(qs[5], height=225)
+    long_question_response = st.text_area("<span style='color:red'>**\***</span> " if vals[qs[5]] == 0 else "  " + qs[5], height=225)
 
-    has_money = st.selectbox(qs[6], money_qs, index=2)
+    has_money = st.selectbox("<span style='color:red'>**\***</span> " if vals[qs[6]] == 0 else "  " + qs[6], money_qs, index=2)
 
     # A true/false checkbox
-    read_brochure = st.selectbox(qs[7] + "", b_qs, index=2)
+    read_brochure = st.selectbox("<span style='color:red'>**\***</span> " if vals[qs[7]] == 0 else "  " + qs[7], b_qs, index=2)
 
     # A button to submit the form
     if st.form_submit_button("Sign Up"):
