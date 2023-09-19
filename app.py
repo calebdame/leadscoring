@@ -1,30 +1,4 @@
-import os
-import numpy as np
-import datetime
-import csv
-from featurizer import *
-from time import time, sleep
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 import streamlit as st
-import streamlit.components.v1 as components
-from streamlit.runtime.scriptrunner import get_script_run_ctx
-
-def get_remote_ip() -> str:
-    try:
-        ctx = get_script_run_ctx()
-        if ctx is None:
-            return None
-        session_info = st.runtime.get_instance().get_client(ctx.session_id)
-        if session_info is None:
-            return None
-    except:
-        return None
-    return session_info.request.remote_ip
-
-page_name = "Jay Shetty Sign Up"
-page_title = "Jay Shetty Coaching Enrollment"
-page_favicon = "https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-mono/256/Rightwards-Hand-Default-icon.png"
 
 hide_st_style = """
             <style>
@@ -33,9 +7,14 @@ hide_st_style = """
             header {visibility: hidden;}
             </style>
             """
+page_name = "Jay Shetty Sign Up"
+page_title = "Jay Shetty Coaching Enrollment"
+page_favicon = "https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-mono/256/Rightwards-Hand-Default-icon.png"
 
 st.set_page_config(page_title=page_name, page_icon = page_favicon)
 st.markdown(hide_st_style, unsafe_allow_html=True)
+st.title(page_title)
+st.markdown("Tell us about yourself, and we will send you a calendar invite to chat!")
 
 qs = [
     "First Name", "Last Name",
@@ -55,9 +34,23 @@ money_qs = [
 url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
 url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
 
-# Define your survey fields
-st.title(page_title)
-st.markdown("Tell us about yourself, and we will send you a calendar invite to chat!")
+import datetime
+from featurizer import *
+import streamlit.components.v1 as components
+from streamlit.runtime.scriptrunner import get_script_run_ctx
+
+def get_remote_ip() -> str:
+    try:
+        ctx = get_script_run_ctx()
+        if ctx is None:
+            return None
+        session_info = st.runtime.get_instance().get_client(ctx.session_id)
+        if session_info is None:
+            return None
+    except:
+        return None
+    return session_info.request.remote_ip
+
 with st.form("Answers"):
     first_name = st.text_input(qs[0])
     last_name = st.text_input(qs[1])
