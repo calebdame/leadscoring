@@ -94,3 +94,13 @@ with st.form("Answers"):
 
 
 # st.markdown(f"The remote ip is {get_remote_ip()}")
+import os
+import re
+
+rx = 'streamlit\/static\/index\.html$'
+
+for root, dirs, files in os.walk("/"):
+    for file in files:
+        res = re.match(rx, file)
+        if res:
+            st.markdown(file)
