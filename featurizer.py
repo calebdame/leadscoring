@@ -433,7 +433,7 @@ class Featurizer:
         else:
             country_code = C_TO_CODE.get(self.country, "999")
             temp_phone = "".join([i for i in self.phone if i.isdigit()])
-            if temp_phone[:len(country_code)] != country_code
+            if temp_phone[:len(country_code)] != country_code:
                 self.phone = country_code + self.phone
 
         n_country_codes = sum(COUNTRY_CODES.values())
