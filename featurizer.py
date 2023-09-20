@@ -267,7 +267,8 @@ FINAL_COLS = {
  'end_domain_freq', 'is_IN_email', 'len_domain', 'len_local', 'fw', 'fw_has_cash', 'non_fw_has_cash', 'maybe_UK', 'maybe_IN',
  'low_income', 'is_sales', 'high_income', 'profession_len_no_ws', 'profession_len', 'has_cash', 'read_b', 'high_income_cash',
  'occ_avg_word_len', 'occ_len', 'occ_alnum_frac', 'occ_stopword_freq', 'q_mention_j', 'q_mention_coach', 'q_avg_word_len',
- 'q_len', 'q_lines', 'q_alnum_frac', 'q_unique_word_freq', 'q_stopword_freq', 'avg_len', 'log_geo_avg_len'}
+ 'q_len', 'q_lines', 'q_alnum_frac', 'q_unique_word_freq', 'q_stopword_freq', 'avg_len', 'log_geo_avg_len', "len_email",
+ "occ_pos-neg", "q_pos-neg"}
 
 COUNTRY_CODES = {
  '1': 5990, '44': 1354, '61': 504, '91': 488, '971': 90, '49': 69, '27': 55, '353': 54, '234': 39, '31': 36,
@@ -427,10 +428,13 @@ class Featurizer:
     def gen_name_email_phone_feats(self):
         
 
-        if self.country is not None:
+        if self.country is None:
             country_code = re.sub("\\D", "", self.phone.split(" (")[0])
         else:
             country_code = C_TO_CODE.get(self.country, "999")
+            temp_phone = "".join([i for i in self.phone if i.isdigit()])
+            if temp_phone[:len(country_code)] != country_code
+                self.phone = country_code + self.phone
 
         n_country_codes = sum(COUNTRY_CODES.values())
 
@@ -474,7 +478,6 @@ class Featurizer:
             'shared_email_substring_frac_name_domain' : len_shared_sub_domain/len_domain,
             'shared_email_substring_frac_geo_domain' : len_shared_sub_domain**2 / (len_name * len_local),
             'numbers_in_email' : sum(j.isdigit() for j in self.local),
-            'numbers_in_phone' : sum(j.isdigit() for j in self.phone),
             'frac_numbers_in_email' : sum(j.isdigit() for j in self.local) / len_local,
             'frac_alpha_in_email' : sum(j.isalpha() for j in self.local) / len_local,
             'frac_other_in_email' : sum(1-int(j.isalpha())-int(j.isdigit()) for j in self.local) / len_local,
@@ -498,6 +501,7 @@ class Featurizer:
             "len_email_country": len(self.domain.split(".")[-1]),
             "len_domain": len_domain,
             "len_local": len_local,
+            "len_email": 1 + len_local + len_domain
         }
         
         self.name_email_phone_feats["fw"] = 1*(self.name_email_phone_feats["is_USA_code"]+
@@ -520,8 +524,10 @@ class Featurizer:
         
         occ_nltk = SIA.polarity_scores(self.occ)
         occ_nltk = {f"occ_{i[0]}":i[1] for i in occ_nltk.items()}
+        occ_nltk["occ_pos-neg"] = occ_nltk["occ_pos"] - occ_nltk["occ_neg"]
         q_nltk = SIA.polarity_scores(self.q)
         q_nltk = {f"q_{i[0]}":i[1] for i in q_nltk.items()}
+        q_nltk["q_pos-neg"] = q_nltk["q_pos"] - q_nltk["q_neg"]
         
         q_tokenized = word_tokenize(self.q.lower())
         q_tokenized_len = max(len(q_tokenized),1)
