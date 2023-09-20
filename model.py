@@ -45,7 +45,7 @@ COLS_ORDER = [
 'shared_email_substring_frac_name_domain', 'shared_email_substring_len', 
 'shared_email_substring_len_domain', 'total_occ_counts', 'total_occ_freq', 'total_q_counts', 
 'total_q_freq', 'week_cos', 'week_cos_US', 'week_cos_is_weekend', 'week_sin', 'week_sin_US', 
-'week_sin_is_weekend'
+'week_sin_is_weekend',"len_email", "occ_pos-neg", "q_pos-neg"
 ]
 
 class Model:
