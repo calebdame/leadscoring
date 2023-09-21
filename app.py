@@ -88,7 +88,7 @@ st.write(
     """,
     unsafe_allow_html=True
 )
-st.markdown("<div align=\"center\">This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.</div>", unsafe_allow_html=True)
+st.markdown("<div align=\"center\">This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.</div><br>", unsafe_allow_html=True)
 st.markdown("##### Provide your information below:")
 with st.form("Answers"):
     cols = st.columns([4,2,4])
