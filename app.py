@@ -88,8 +88,8 @@ st.write(
     """,
     unsafe_allow_html=True
 )
-st.markdown("<div align="center">**This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.</div>**")
-
+st.markdown("<div align=\"center\">**This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.</div>**")
+st.markdown("##### Provide your information below:")
 with st.form("Answers"):
     cols = st.columns([4,2,4])
     with cols[0]:
@@ -107,7 +107,7 @@ with st.form("Answers"):
     read_brochure = st.selectbox(f"{qs[7]}", b_qs, index=2)
     check = st.checkbox("I understand my Enrollment Advisor will call me on the number I provide at the appointment time I will schedule. I will be ready for the call.")
     
-    if st.form_submit_button("Sign Up"):
+    if st.form_submit_button("Submit"):
         vals = {
             qs[0]: len(name), qs[1]: len(phone_number), qs[2]: len(email),
             qs[4]: len(occupation), qs[5]: len(long_question_response),
