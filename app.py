@@ -16,6 +16,9 @@ st.set_page_config(page_title=page_name, page_icon = page_favicon)
 st.markdown(hide_st_style, unsafe_allow_html=True)
 with open( "style.css" ) as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
+left_co, cent_co,last_co = st.columns(3)
+with cent_co:
+    st.image("js_school_banner.png")
 st.title(page_title)
 st.markdown("Tell us about yourself, and we will send you a calendar invite to chat!")
 
