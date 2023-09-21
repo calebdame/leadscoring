@@ -68,6 +68,11 @@ with st.form("Answers"):
     long_question_response = st.text_area(f"{qs[5]}", height=225)
     has_money = st.selectbox(f"{qs[6]}", money_qs, index=2)
     read_brochure = st.selectbox(f"{qs[7]}", b_qs, index=2)
+    cols=st.columns(3)
+    with cols[0]:
+        a = st.selectbox("Country Code", [1,2,3], index=1)
+    with cols[1]:
+        b = st.text_input("Phone")
     
     if st.form_submit_button("Sign Up"):
         vals = {
