@@ -26,8 +26,8 @@ with cent_co:
     </style>
     '''
     st.markdown(hide_img_fs, unsafe_allow_html=True)
-st.title(page_title)
-st.markdown("Tell us about yourself, and we will send you a calendar invite to chat!")
+# st.title(page_title)
+# st.markdown("Tell us about yourself, and we will send you a calendar invite to chat!")
 
 qs = [ 
     "Full Name*", "Phone Number*", "Email Address*",
@@ -74,14 +74,22 @@ vals = {
 main_columns = st.columns([7,4])
 with main_columns[0]:
     st.markdown("""
-## CONGRATULATIONS!
+# CONGRATULATIONS!
 
-### You're about to book a call with a friendly enrollment advisor inside Jay Shetty Coaching Certification School!
-
-#### This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.""")
+### You're about to book a call with a friendly enrollment advisor inside Jay Shetty Coaching Certification School! """)
 with main_columns[1]:
     st.image("js_profile.png")
     st.markdown(hide_img_fs, unsafe_allow_html=True)
+st.write(
+    """<style>
+    [data-testid="stHorizontalBlock"] {
+        align-items: center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+st.markdown("####This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.")
 
 with st.form("Answers"):
     cols = st.columns([4,2,4])
