@@ -1,5 +1,8 @@
 import streamlit as st
 
+with open( "style.css" ) as css:
+    st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
+
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -63,12 +66,12 @@ with st.form("Answers"):
     with cols[0]:
         name = st.text_input(f"{qs[0]}")
     with cols[1]:
-        country = st.selectbox("Code +", [f"Argentina: {i}" for i in range(4)], index=2)
+        country = st.selectbox("Country Code", [f"Argentina: {i}" for i in range(4)], index=2)
     with cols[2]:
         phone = st.text_input("Local Phone Number")
-    phone_number = st.text_input(f"{qs[1]}")
+    # phone_number = st.text_input(f"{qs[1]}")
     email = st.text_input(f"{qs[2]}")
-    home_country = st.selectbox(qs[3],COUNTRIES,index=COUNTRIES.index('United States'))
+    # home_country = st.selectbox(qs[3],COUNTRIES,index=COUNTRIES.index('United States'))
     occupation = st.text_input(f"{qs[4]}")
     long_question_response = st.text_area(f"{qs[5]}", height=225)
     has_money = st.selectbox(f"{qs[6]}", money_qs, index=2)
