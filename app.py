@@ -59,9 +59,13 @@ vals = {
 }
 
 with st.form("Answers"):
-    name_cols = st.columns(2)
-    with name_cols[0]:
+    cols = st.columns([4,2,4])
+    with cols[0]:
         name = st.text_input(f"{qs[0]}")
+    with cols[1]:
+        country = st.selectbox("Code +", [f"Argentina: {i}" for i in range(4)], index=2)
+    with cols[2]:
+        phone = st.text_input("Local Phone Number")
     phone_number = st.text_input(f"{qs[1]}")
     email = st.text_input(f"{qs[2]}")
     home_country = st.selectbox(qs[3],COUNTRIES,index=COUNTRIES.index('United States'))
@@ -69,11 +73,7 @@ with st.form("Answers"):
     long_question_response = st.text_area(f"{qs[5]}", height=225)
     has_money = st.selectbox(f"{qs[6]}", money_qs, index=2)
     read_brochure = st.selectbox(f"{qs[7]}", b_qs, index=2)
-    cols=st.columns([1,4,5])
-    with cols[0]:
-        a = st.selectbox("Country Code", [1,2,3], index=1)
-    with cols[1]:
-        b = st.text_input("Phone")
+
     
     if st.form_submit_button("Sign Up"):
         vals = {
