@@ -16,7 +16,7 @@ st.set_page_config(page_title=page_name, page_icon = page_favicon)
 st.markdown(hide_st_style, unsafe_allow_html=True)
 with open( "style.css" ) as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
-_, cent_co, _ = st.columns([1,7,1])
+_, cent_co, _ = st.columns([1,10,1])
 with cent_co:
     st.image("js_school_banner.png")
     hide_img_fs = '''
@@ -73,8 +73,7 @@ vals = {
 st.markdown("---")
 main_columns = st.columns([7,4])
 with main_columns[0]:
-    st.markdown("""
-# CONGRATULATIONS!
+    st.markdown("""# CONGRATULATIONS!
 
 ### You're about to book a call with a friendly enrollment advisor inside Jay Shetty Coaching Certification School! """)
 with main_columns[1]:
@@ -89,8 +88,7 @@ st.write(
     """,
     unsafe_allow_html=True
 )
-st.markdown("---")
-st.markdown("**This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.**")
+st.markdown("<div align="center">**This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.</div>**")
 
 with st.form("Answers"):
     cols = st.columns([4,2,4])
@@ -107,7 +105,7 @@ with st.form("Answers"):
     long_question_response = st.text_area(f"{qs[5]}", height=170)
     has_money = st.selectbox(f"{qs[6]}", money_qs, index=2)
     read_brochure = st.selectbox(f"{qs[7]}", b_qs, index=2)
-    check = st.checkbox("I understand my Enrollment Advisor will call me on the number I provided at the appointment time I will schedule. I will be ready for the call.")
+    check = st.checkbox("I understand my Enrollment Advisor will call me on the number I provide at the appointment time I will schedule. I will be ready for the call.")
     
     if st.form_submit_button("Sign Up"):
         vals = {
