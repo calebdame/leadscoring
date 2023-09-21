@@ -70,7 +70,7 @@ def get_remote_ip() -> str:
 vals = {
     qs[0]: 1, qs[1]: 1, qs[2]: 1, qs[4]: 1, qs[5]: 1, qs[6]: 1, qs[7]: 1
 }
-
+st.markdown("---")
 main_columns = st.columns([7,4])
 with main_columns[0]:
     st.markdown("""
@@ -89,7 +89,8 @@ st.write(
     """,
     unsafe_allow_html=True
 )
-st.markdown("####This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.")
+st.markdown("---")
+st.markdown("**This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.**")
 
 with st.form("Answers"):
     cols = st.columns([4,2,4])
