@@ -1,8 +1,5 @@
 import streamlit as st
 
-with open( "style.css" ) as css:
-    st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
-
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -15,7 +12,10 @@ page_title = "Jay Shetty Coaching Enrollment"
 page_favicon = "https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-mono/256/Rightwards-Hand-Default-icon.png"
 
 st.set_page_config(page_title=page_name, page_icon = page_favicon)
+
 st.markdown(hide_st_style, unsafe_allow_html=True)
+with open( "style.css" ) as css:
+    st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
 st.title(page_title)
 st.markdown("Tell us about yourself, and we will send you a calendar invite to chat!")
 
