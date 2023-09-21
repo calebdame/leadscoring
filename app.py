@@ -95,9 +95,9 @@ with st.form("Answers"):
     with cols[0]:
         name = st.text_input(f"{qs[0]}")
     with cols[1]:
-        country = st.selectbox("Country Code", [f"Argentina: {i}" for i in range(4)], index=2)
+        country = st.selectbox("Country Code", [f"Argentina: {i}" for i in range(4)] + [""], index=4)
     with cols[2]:
-        phone = st.text_input("Local Phone Number")
+        phone = st.text_input("Phone Number")
     # phone_number = st.text_input(f"{qs[1]}")
     email = st.text_input(f"{qs[2]}")
     # home_country = st.selectbox(qs[3],COUNTRIES,index=COUNTRIES.index('United States'))
