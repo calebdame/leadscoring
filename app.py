@@ -95,9 +95,9 @@ with st.form("Answers"):
     with cols[0]:
         name = st.text_input(f"{qs[0]}")
     with cols[1]:
-        country = st.selectbox("Country Code", [f"Argentina: {i}" for i in range(4)] + [""], index=4)
+        country = st.selectbox("Country Code*", [f"Argentina: {i}" for i in range(4)] + [""], index=4)
     with cols[2]:
-        phone = st.text_input("Phone Number")
+        phone = st.text_input("Phone Number*")
     # phone_number = st.text_input(f"{qs[1]}")
     email = st.text_input(f"{qs[2]}")
     # home_country = st.selectbox(qs[3],COUNTRIES,index=COUNTRIES.index('United States'))
@@ -105,7 +105,7 @@ with st.form("Answers"):
     long_question_response = st.text_area(f"{qs[5]}", height=170)
     has_money = st.selectbox(f"{qs[6]}", money_qs, index=2)
     read_brochure = st.selectbox(f"{qs[7]}", b_qs, index=2)
-    check = st.checkbox("I understand my Enrollment Advisor will call me on the number I provide at the appointment time I will schedule. I will be ready for the call.")
+    check = st.checkbox("I understand my Enrollment Advisor will call me on the number I provided and at the appointment time I will schedule. I will be ready for the call.*")
     
     if st.form_submit_button("Submit"):
         vals = {
