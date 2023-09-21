@@ -16,7 +16,7 @@ st.set_page_config(page_title=page_name, page_icon = page_favicon)
 st.markdown(hide_st_style, unsafe_allow_html=True)
 with open( "style.css" ) as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
-left_co, cent_co,last_co = st.columns([1,6,1])
+_, cent_co, _ = st.columns([1,7,1])
 with cent_co:
     st.image("js_school_banner.png")
     hide_img_fs = '''
@@ -30,11 +30,11 @@ st.title(page_title)
 st.markdown("Tell us about yourself, and we will send you a calendar invite to chat!")
 
 qs = [ 
-    "Full Name", "Phone Number", "Email Address",
-    "Country", "What is your Occupation?",
-    "What’s happening in your life right now that has you potentially considering becoming a life coach? And ultimately what’s your goal?",
-    "What best describes your financial situation?",
-    "Please confirm you have read our Program Brochure before booking the Enrollment Interview"
+    "Full Name*", "Phone Number*", "Email Address*",
+    "Country*", "What is your Occupation?*",
+    "What’s happening in your life right now that has you potentially considering becoming a life coach? And ultimately what’s your goal?*",
+    "What best describes your financial situation?*",
+    "Please confirm you have read our Program Brochure before booking the Enrollment Interview*"
 ]
 
 money_qs = [
@@ -71,6 +71,18 @@ vals = {
     qs[0]: 1, qs[1]: 1, qs[2]: 1, qs[4]: 1, qs[5]: 1, qs[6]: 1, qs[7]: 1
 }
 
+main_columns = st.columns([7,4])
+with main_columns[0]:
+    st.markdown("""
+## CONGRATULATIONS!
+
+### You're about to book a call with a friendly enrollment advisor inside Jay Shetty Coaching Certification School!
+
+#### This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.""")
+with main_columns[1]:
+    st.image("js_profile.png")
+    st.markdown(hide_img_fs, unsafe_allow_html=True)
+
 with st.form("Answers"):
     cols = st.columns([4,2,4])
     with cols[0]:
@@ -83,10 +95,10 @@ with st.form("Answers"):
     email = st.text_input(f"{qs[2]}")
     # home_country = st.selectbox(qs[3],COUNTRIES,index=COUNTRIES.index('United States'))
     occupation = st.text_input(f"{qs[4]}")
-    long_question_response = st.text_area(f"{qs[5]}", height=225)
+    long_question_response = st.text_area(f"{qs[5]}", height=170)
     has_money = st.selectbox(f"{qs[6]}", money_qs, index=2)
     read_brochure = st.selectbox(f"{qs[7]}", b_qs, index=2)
-
+    check = st.checkbox("I understand my Enrollment Advisor will call me on the number I provided at the appointment time I will schedule. I will be ready for the call.")
     
     if st.form_submit_button("Sign Up"):
         vals = {
@@ -94,7 +106,7 @@ with st.form("Answers"):
             qs[4]: len(occupation), qs[5]: len(long_question_response),
             qs[6]: len(has_money), qs[7]: len(read_brochure)
         }  
-        if all(i != 0 for i in vals.values()):    
+        if all(i != 0 for i in vals.values()) and check:    
             features = [
                 name, phone_number, home_country, email, occupation,
                 long_question_response, int("cash" in has_money), 
@@ -111,6 +123,8 @@ with st.form("Answers"):
             for name, count in vals.items():
                 if count == 0:
                     error = error + f"\n\n{name}"
+            if not check:
+                error = error + "\n\nI understand my Enrollment Advisor will call me*"
             st.error(error, icon="🚨")
             
 # st.success(st.experimental_get_query_params())
