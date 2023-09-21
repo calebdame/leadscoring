@@ -9,7 +9,7 @@ hide_st_style = """
             """
 page_name = "Jay Shetty Sign Up"
 page_title = "Jay Shetty Coaching Enrollment"
-page_favicon = "https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-mono/256/Rightwards-Hand-Default-icon.png"
+page_favicon = "jsicon.png"
 
 st.set_page_config(page_title=page_name, page_icon = page_favicon)
 
