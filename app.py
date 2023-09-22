@@ -46,7 +46,7 @@ b_qs = [
     "Yes", "No", ""
 ]
 
-thresh = 0.45
+thresh = 49
 url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
 url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
 
