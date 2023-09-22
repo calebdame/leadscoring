@@ -7,12 +7,28 @@ hide_st_style = """
             header {visibility: hidden;}
             </style>
             """
+
 page_name = "Jay Shetty Sign Up"
 page_title = "Jay Shetty Coaching Enrollment"
 page_favicon = "jsicon.png"
 
 st.set_page_config(page_title=page_name, page_icon = page_favicon)#, layout='wide')
-
+st.markdown("""
+        <style>
+               .css-18e3th9 {
+                    padding-top: 0rem;
+                    padding-bottom: 10rem;
+                    padding-left: 5rem;
+                    padding-right: 5rem;
+                }
+               .css-1d391kg {
+                    padding-top: 3.5rem;
+                    padding-right: 1rem;
+                    padding-bottom: 3.5rem;
+                    padding-left: 1rem;
+                }
+        </style>
+        """, unsafe_allow_html=True)
 st.markdown(hide_st_style, unsafe_allow_html=True)
 with open( "style.css" ) as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
