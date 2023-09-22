@@ -16,16 +16,16 @@ st.set_page_config(page_title=page_name, page_icon = page_favicon)#, layout='wid
 st.markdown(hide_st_style, unsafe_allow_html=True)
 with open( "style.css" ) as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
-_, cent_co, _ = st.columns([1,10,1])
-with cent_co:
-    st.image("js_school_banner.png")
-    hide_img_fs = '''
-    <style>
-    button[title="View fullscreen"]{
-        visibility: hidden;}
-    </style>
-    '''
-    st.markdown(hide_img_fs, unsafe_allow_html=True)
+# _, cent_co, _ = st.columns([1,10,1])
+# with cent_co:
+#     st.image("js_school_banner.png")
+#     hide_img_fs = '''
+#     <style>
+#     button[title="View fullscreen"]{
+#         visibility: hidden;}
+#     </style>
+#     '''
+#     st.markdown(hide_img_fs, unsafe_allow_html=True)
 # st.title(page_title)
 # st.markdown("Tell us about yourself, and we will send you a calendar invite to chat!")
 
