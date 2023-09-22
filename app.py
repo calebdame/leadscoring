@@ -71,7 +71,7 @@ country_list = [f"{i[0]}: {i[1]}" for i in CODES.items()]
 vals = {
     qs[0]: 1, qs[1]: 1, qs[2]: 1, qs[4]: 1, qs[5]: 1, qs[6]: 1, qs[7]: 1
 }
-st.markdown("---")
+# st.markdown("---")
 main_columns = st.columns([7,4])
 with main_columns[0]:
     st.markdown("""# CONGRATULATIONS!
