@@ -67,6 +67,7 @@ def get_remote_ip() -> str:
         return None
     return session_info.request.remote_ip
 
+country_list = [f"{i[0]}: {i[1]}" for i in CODES.items()]
 vals = {
     qs[0]: 1, qs[1]: 1, qs[2]: 1, qs[4]: 1, qs[5]: 1, qs[6]: 1, qs[7]: 1
 }
@@ -95,7 +96,7 @@ with st.form("Answers"):
     with cols[0]:
         name = st.text_input(f"{qs[0]}")
     with cols[1]:
-        country = st.selectbox("Country Code*", [f"Argentina: {i}" for i in range(4)] + [""], index=4)
+        country = st.selectbox("Country Code*", country_list, index=224)
     with cols[2]:
         phone = st.text_input("Phone Number*")
     # phone_number = st.text_input(f"{qs[1]}")
