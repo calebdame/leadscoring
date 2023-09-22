@@ -11,7 +11,7 @@ page_name = "Jay Shetty Sign Up"
 page_title = "Jay Shetty Coaching Enrollment"
 page_favicon = "jsicon.png"
 
-st.set_page_config(page_title=page_name, page_icon = page_favicon)
+st.set_page_config(page_title=page_name, page_icon = page_favicon, layout='wide')
 
 st.markdown(hide_st_style, unsafe_allow_html=True)
 with open( "style.css" ) as css:
