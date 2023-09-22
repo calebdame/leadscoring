@@ -96,9 +96,10 @@ with st.form("Answers"):
     with cols[0]:
         name = st.text_input(f"{qs[0]}")
     with cols[1]:
-        country = st.selectbox("Country Code*", country_list, index=224)
+        country = st.selectbox("Country Code*", country_list, index=226)
+        country_code = country.split("+")[-1]
     with cols[2]:
-        phone = st.text_input("Phone Number*")
+        phone_number = st.text_input("Phone Number*")
     # phone_number = st.text_input(f"{qs[1]}")
     email = st.text_input(f"{qs[2]}")
     # home_country = st.selectbox(qs[3],COUNTRIES,index=COUNTRIES.index('United States'))
@@ -116,7 +117,7 @@ with st.form("Answers"):
         }  
         if all(i != 0 for i in vals.values()) and check:    
             features = [
-                name, phone_number, home_country, email, occupation,
+                name, country_code+phone_number, None, email, occupation,
                 long_question_response, int("cash" in has_money), 
                 int("Yes" in read_brochure), datetime.datetime.now()
             ]
