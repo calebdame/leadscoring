@@ -168,8 +168,8 @@ maglr = '''
             align-items: center;
         }
         iframe {
-            width: 1000px;
-            max-width: 95%;
+            width: 950px;
+            max-width: 130%;
             height: 550;
             position: absolute;
         }
