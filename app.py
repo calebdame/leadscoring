@@ -12,7 +12,25 @@ page_name = "Jay Shetty Sign Up"
 page_title = "Jay Shetty Coaching Enrollment"
 page_favicon = "jsicon.png"
 
+max_width = 1200
+
 st.set_page_config(page_title=page_name, page_icon = page_favicon)#, layout='wide')
+st.markdown(
+        f"""
+<style>
+    .appview-container .main .block-container{{
+        max-width: {max_width}px;
+        padding-top: 0rem;
+        padding-right: 0rem;
+        padding-left: 0rem;
+        padding-bottom: rem;
+    }}
+</style>
+""",
+        unsafe_allow_html=True,
+    )
+
+
 st.markdown("""
         <style>
                .block-container {
@@ -172,7 +190,7 @@ maglr = '''
         }
         iframe {
             width: 950px;
-            max-width: 130%;
+            max-width: 100%;
             height: 550px;
             position: absolute;
             border 0 none;
