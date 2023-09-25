@@ -111,9 +111,12 @@ with st.form("Answers"):
     with cols[2]:
         phone_number = st.text_input("Phone Number*")
     # phone_number = st.text_input(f"{qs[1]}")
-    email = st.text_input(f"{qs[2]}")
+    cols2 = st.columns([4,6])
+    with cols2[0]:
+        email = st.text_input(f"{qs[2]}")
     # home_country = st.selectbox(qs[3],COUNTRIES,index=COUNTRIES.index('United States'))
-    occupation = st.text_input(f"{qs[4]}")
+    with cols2[1]:
+        occupation = st.text_input(f"{qs[4]}")
     long_question_response = st.text_area(f"{qs[5]}", height=170)
     has_money = st.selectbox(f"{qs[6]}", money_qs, index=2)
     read_brochure = st.selectbox(f"{qs[7]}", b_qs, index=2)
