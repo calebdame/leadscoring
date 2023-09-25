@@ -12,7 +12,7 @@ page_name = "Jay Shetty Sign Up"
 page_title = "Jay Shetty Coaching Enrollment"
 page_favicon = "jsicon.png"
 
-max_width = 1200
+max_width = 1000
 
 st.set_page_config(page_title=page_name, page_icon = page_favicon)#, layout='wide')
 st.markdown(
