@@ -170,7 +170,7 @@ maglr = '''
         iframe {
             width: 950px;
             max-width: 130%;
-            height: 550;
+            height: 550px;
             position: absolute;
         }
     </style>
