@@ -155,6 +155,6 @@ with st.form("Answers"):
 # data = conn.read(worksheet="Sheet1")
 # st.dataframe(data)
 maglr = '''
-<iframe src="https://embed.maglr.com/oseawedjvb?nav=3501" width="950" height="550" seamless="seamless" scrolling="yes" frameborder="0" allowtransparency="true" allowfullscreen=""></iframe>
+<p align="center"><iframe src="https://embed.maglr.com/oseawedjvb?nav=3501" width="950" height="550" seamless="seamless" scrolling="yes" frameborder="0" allowtransparency="true" allowfullscreen=""></iframe></p>
 '''
 st.markdown(maglr, unsafe_allow_html=True)
