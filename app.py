@@ -157,4 +157,26 @@ with st.form("Answers"):
 maglr = '''
 <div style="text-align: center;"><iframe src="https://embed.maglr.com/oseawedjvb?nav=3501" width="950" height="550" seamless="seamless" scrolling="yes" frameborder="no" allowtransparency="true" allowfullscreen=""></iframe></div>
 '''
+
+maglr = '''
+<body>
+    <style>
+        body {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+        }
+        iframe {
+            width: 1000px;
+            max-width: 95%;
+            height: 550;
+            position: absolute;
+        }
+    </style>
+    <iframe src="https://embed.maglr.com/oseawedjvb?nav=3501"></iframe>
+</body>
+'''
+
+
 st.markdown(maglr, unsafe_allow_html=True)
