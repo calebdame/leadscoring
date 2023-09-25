@@ -162,6 +162,9 @@ maglr = '''
 <body>
     <style>
         body {
+            margin: 0;
+            padding: 0;
+            overflow: 0;
             display: flex;
             flex-flow: row nowrap;
             justify-content: center;
@@ -172,6 +175,8 @@ maglr = '''
             max-width: 130%;
             height: 550px;
             position: absolute;
+            border 0 none;
+            padding: 0;
         }
     </style>
     <iframe src="https://embed.maglr.com/oseawedjvb?nav=3501"></iframe>
