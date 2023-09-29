@@ -26,20 +26,14 @@ st.markdown(
         padding-bottom: rem;
     }}
 </style>
-""",
-        unsafe_allow_html=True,
-    )
-
-
-st.markdown("""
-        <style>
-               .block-container {
-                    padding-top: 0rem;
-                    padding-bottom: 0rem;
-                    padding-left: 0rem;
-                    padding-right: 0rem;
-                }
-        </style>
+<style>
+   .block-container {{
+        padding-top: 0rem;
+        padding-bottom: 0rem;
+        padding-left: 0rem;
+        padding-right: 0rem;
+    }}
+</style>
         """, unsafe_allow_html=True)
 st.markdown(hide_st_style, unsafe_allow_html=True)
 with open( "style.css" ) as css:
