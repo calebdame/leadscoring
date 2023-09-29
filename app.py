@@ -142,7 +142,7 @@ with st.form("Answers"):
         }  
         if all(i != 0 for i in vals.values()) and check:    
             features = [
-                name, country_code+phone_number, None, email, occupation,
+                name, country_code+" ("+phone_number, None, email, occupation,
                 long_question_response, int("cash" in has_money), 
                 int("Yes" in read_brochure), datetime.datetime.now()
             ]
