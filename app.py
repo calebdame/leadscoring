@@ -2,6 +2,7 @@ import streamlit as st
 import datetime
 from featurizer import *
 import re
+import os
 
 def nav_to(url):
     nav_script = """
