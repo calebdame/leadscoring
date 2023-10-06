@@ -198,3 +198,10 @@ maglr = '''
 
 
 st.markdown(maglr, unsafe_allow_html=True)
+
+video_2 = """
+<iframe src="https://player.vimeo.com/video/832618523?h=a0f11e9dd6&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Anthony Ikin - Individual Highlights" data-ready="true"></iframe>
+"""
+st.markdown(video_2, unsafe_allow_html=True)
+
+
