@@ -118,7 +118,7 @@ def process_form(name, country_code, phone_number, email, occupation, long_quest
 
 
 def validate_form(vals, check, name, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure):
-    if all(i != 0 for i in vals.values()) and check and (vals["Phone Number"] > 7) and (vals["Phone Number"] < 15):
+    if all(i != 0 for i in vals.values()) and check and (vals["Phone Number*"] > 7) and (vals["Phone Number*"] < 15):
         features = [
             name, country_code + " (" + phone_number, None, email, occupation,
             long_question_response, int("cash" in has_money),
