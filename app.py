@@ -3,10 +3,11 @@ import datetime
 from featurizer import *
 import streamlit.components.v1 as components
 
-def redirect(url):
-    """Generate a script to redirect to a specific URL"""
-    js = f"<script>window.location.href='{url}';</script>"
-    components.html(js)
+def nav_to(url):
+    nav_script = """
+        <meta http-equiv="refresh" content="0; url='%s'">
+    """ % (url)
+    st.write(nav_script, unsafe_allow_html=True)
 
 # Configurations and Styles
 def set_streamlit_config():
@@ -137,7 +138,7 @@ def validate_form(vals, check, name, country_code, phone_number, email, occupati
         url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
         url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
         st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > thresh else url2})", icon="✅")
-        redirect(url1 if int_score > thresh else url2)
+        nav_to(url1 if int_score > thresh else url2)
     else:
         error_message = generate_error_message(vals, check)
         st.error(error_message, icon="🚨")
