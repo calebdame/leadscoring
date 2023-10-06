@@ -8,6 +8,12 @@ import re
 import os
 import time
 
+UTMS = [
+    f'booking-{j}-{i}' for i in ["be", "a", "f", "s"] for j in ["rnc", "c2c", "ovsl"]
+] + [
+    'booking-amb', 'jscs-instant-book', 'booking-be', 'booking-pathway', 'booking-funnel'
+]
+
 def nav_to(url):
     nav_script = """
         <meta http-equiv="refresh" content="0; url='%s'">
@@ -131,21 +137,23 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
         thresh = 49
         url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
         url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
-
+        vsl = st.experimental_get_query_params()["utm_campaign"][0]
+        bad = "" if int_score > thresh else "u-"
+        url = f"https://pages.jayshettycoaching.com/" + bad + vsl + "/"
         send_to_hubspot(
             lname, fname, country_code, phone_number, 
             email, occupation, long_question_response, 
             has_money, read_brochure, ts, check, 
-            int_score, score
+            int_score, score, vsl
         )
         time.sleep(0.25)
         st.success(f"Thank you for submitting the survey!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > thresh else url2})", icon="✅")
-        nav_to(url1 if int_score > thresh else url2)
+        nav_to(url)
     else:
         error_message = generate_error_message(vals, check)
         st.error(error_message, icon="🚨")
 
-def send_to_hubspot(lname, fname, country, phone_number, email, occupation, long_question_response, has_money, read_brochure, ts, check, perc_score, score):
+def send_to_hubspot(lname, fname, country, phone_number, email, occupation, long_question_response, has_money, read_brochure, ts, check, perc_score, score, vsl):
 
     api_client = HubSpot(access_token=os.environ["hs_access_token"])
     try:
@@ -161,7 +169,7 @@ def send_to_hubspot(lname, fname, country, phone_number, email, occupation, long
                         "i_will_be_ready_for_the_call": str(check).lower(),
                         "lead_score": score,
                         "lead_percentile_score": perc_score,
-                        "vsl_source": "vsl_3",
+                        "vsl_source": vsl,
                          "country": country.split(":")[0]
                          }
         )
