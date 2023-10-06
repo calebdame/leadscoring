@@ -217,7 +217,6 @@ def display_footer():
     </body><br><br><br>
     '''
     st.markdown(maglr, unsafe_allow_html=True)
-    st.success(st.experimental_get_query_params())
 
 def main():
     set_streamlit_config()
