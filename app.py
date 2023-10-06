@@ -3,6 +3,11 @@ import datetime
 from featurizer import *
 import webbrowser
 
+def redirect(url):
+    """Generate a script to redirect to a specific URL"""
+    js = f"<script>window.location.href='{url}';</script>"
+    st.markdown(js, unsafe_allow_html=True)
+
 # Configurations and Styles
 def set_streamlit_config():
     hide_st_style = """
@@ -132,7 +137,7 @@ def validate_form(vals, check, name, country_code, phone_number, email, occupati
         url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
         url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
         st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > thresh else url2})", icon="✅")
-        webbrowser.open_new_tab(url1 if int_score > thresh else url2)
+        redirect(url1 if int_score > thresh else url2)
     else:
         error_message = generate_error_message(vals, check)
         st.error(error_message, icon="🚨")
