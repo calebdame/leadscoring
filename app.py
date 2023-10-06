@@ -50,7 +50,7 @@ def display_header():
     with main_columns[0]:
         st.markdown("""# CONGRATULATIONS!
         
-        ### You're about to book a call with a friendly enrollment advisor inside Jay Shetty Coaching Certification School! """)
+### You're about to book a call with a friendly enrollment advisor inside Jay Shetty Coaching Certification School! """)
     with main_columns[1]:
         st.image("js_profile.png")
         st.markdown(hide_img_fs, unsafe_allow_html=True)
@@ -132,7 +132,7 @@ def validate_form(vals, check, name, country_code, phone_number, email, occupati
         url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
         url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
         st.success(f"Thank you for submitting the survey!\n\nYou are more likely to convert than {int_score}% of other leads!\n\nFind your calendar invite below:\n\n[Click Here]({url1 if int_score > thresh else url2})", icon="✅")
-        webbrowser.open(url1 if int_score > thresh else url2)
+        webbrowser.open_new_tab(url1 if int_score > thresh else url2)
     else:
         error_message = generate_error_message(vals, check)
         st.error(error_message, icon="🚨")
