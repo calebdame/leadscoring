@@ -147,7 +147,7 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
         )
         time.sleep(0.25)
         st.success(f"Thank you for submitting the survey!\n\nFind your calendar invite below:\n\n[Click Here]({url})", icon="✅")
-        nav_to(url)
+        # nav_to(url)
     else:
         error_message = generate_error_message(vals, check)
         st.error(error_message, icon="🚨")
