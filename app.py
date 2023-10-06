@@ -1,12 +1,12 @@
 import streamlit as st
 import datetime
 from featurizer import *
-import webbrowser
+import streamlit.components.v1 as components
 
 def redirect(url):
     """Generate a script to redirect to a specific URL"""
     js = f"<script>window.location.href='{url}';</script>"
-    st.markdown(js, unsafe_allow_html=True)
+    components.html(js)
 
 # Configurations and Styles
 def set_streamlit_config():
