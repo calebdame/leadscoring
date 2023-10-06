@@ -152,7 +152,7 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
         error_message = generate_error_message(vals, check)
         st.error(error_message, icon="🚨")
 
-def send_to_hubspot(lname, fname, country, phone_number, email, occupation, long_question_response, has_money, read_brochure, ts, check, perc_score, score, vsl):
+def send_to_hubspot(lname, fname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure, ts, check, perc_score, score, vsl):
 
     api_client = HubSpot(access_token=os.environ["access_token"])
     try:
@@ -169,7 +169,7 @@ def send_to_hubspot(lname, fname, country, phone_number, email, occupation, long
                         "lead_score": score,
                         "lead_percentile_score": perc_score,
                         "vsl_source": vsl,
-                         "country": country.split(":")[0]
+                         "country": country_code.split(":")[0]
                          }
         )
         api_response = api_client.crm.contacts.basic_api.create(
