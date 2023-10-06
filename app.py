@@ -10,9 +10,7 @@ import time
 
 UTMS = [
     f'booking-{j}-{i}' for i in ["be", "a", "f", "s"] for j in ["rnc", "c2c", "ovsl"]
-] + [
-    'booking-amb', 'jscs-instant-book', 'booking-be', 'booking-pathway', 'booking-funnel'
-]
+] + ['booking-amb', 'jscs-instant-book', 'booking-be', 'booking-pathway', 'booking-funnel']
 
 def nav_to(url):
     nav_script = """
@@ -156,7 +154,7 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
 
 def send_to_hubspot(lname, fname, country, phone_number, email, occupation, long_question_response, has_money, read_brochure, ts, check, perc_score, score, vsl):
 
-    api_client = HubSpot(access_token=os.environ["hs_access_token"])
+    api_client = HubSpot(access_token=os.environ["access_token"])
     try:
         simple_public_object_input_for_create = SimplePublicObjectInputForCreate(
             properties={"email": email,   #string
