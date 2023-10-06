@@ -86,7 +86,7 @@ def get_user_details():
     return fname, lname, country, phone_number
 
 def get_secondary_details():
-    cols2 = st.columns([4, 6])
+    cols2 = st.columns([5, 5])
     with cols2[0]:
         email = st.text_input("Email Address*")
     with cols2[1]:
@@ -153,7 +153,7 @@ def send_to_hubspot(lname, fname, country, phone_number, email, occupation, long
             properties={"email": email,   #string
                         "firstname": fname,           #string
                         "lastname": lname,          #string
-                        "phone": f"+{country_code.split("+")[-1]}-{phone_number}",
+                        "phone": f"+{country_code.split('+')[-1]}-{phone_number}",
                         "jobtitle": occupation,
                         "what_s_your_goal_": long_question_response,
                         "what_best_describes_your_financial_situation_":has_money,
