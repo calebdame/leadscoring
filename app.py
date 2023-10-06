@@ -49,6 +49,7 @@ def display_header():
     main_columns = st.columns([7, 4])
     with main_columns[0]:
         st.markdown("""# CONGRATULATIONS!
+        
         ### You're about to book a call with a friendly enrollment advisor inside Jay Shetty Coaching Certification School! """)
     with main_columns[1]:
         st.image("js_profile.png")
