@@ -103,7 +103,7 @@ def get_additional_details():
 
 def process_form(fname, lname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure, check):
     if st.form_submit_button("Submit"):
-        phone = re.sub("[^0-9]", "", phone)
+        phone = re.sub("[^0-9]", "", phone_number)
         vals = {
             "First Name*": len(fname),
             "Last Name*": len(lname),
