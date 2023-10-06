@@ -135,11 +135,12 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
         feats = f.generate_feature_dict()
         score, int_score = model.predict([feats])
         thresh = 49
-        url1 = "https://pages.jayshettycoaching.com/test-jscs-qualified-booking/"
-        url2 = "https://pages.jayshettycoaching.com/test-jscs-unqualified-lead/"
-        vsl = st.experimental_get_query_params()["utm_campaign"][0]
         bad = "" if int_score > thresh else "u-"
-        url = f"https://pages.jayshettycoaching.com/" + bad + vsl + "/"
+        vsl = st.experimental_get_query_params().get("utm_campaign",["None"])[0]
+        if vsl in UTMS:
+            url = f"https://pages.jayshettycoaching.com/" + bad + vsl + "/"
+        else:
+            url = "https://pages.jayshettycoaching.com/" + bad + "booking-rnc-be/"
         send_to_hubspot(
             lname, fname, country_code, phone_number, 
             email, occupation, long_question_response, 
