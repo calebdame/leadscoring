@@ -181,6 +181,8 @@ def create_contact_and_deal(prop, is_SDR):
         "raw_score": prop['lead_score'],
         "percentile_score": prop['lead_percentile_score'] 
     }
+    if is_SDR:
+        deal_data["dealname"] = f"{prop['firstname']} - {prop['lastname']} - Booking Attempt"
     
     r = requests.post(
         data=json.dumps({"properties": deal_data}), 
