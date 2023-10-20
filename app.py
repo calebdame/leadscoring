@@ -120,8 +120,7 @@ def process_form(fname, lname, country_code, phone_number, email, occupation, lo
             "What is your Occupation?*": len(occupation),
             "What’s happening in your life right now that has you potentially considering becoming a life coach? And ultimately what’s your goal?*": len(long_question_response),
             "What best describes your financial situation?*": len(has_money),
-            "Please confirm whether you have read our Program Brochure before booking the Enrollment Interview*": len(read_brochure),
-            "time_spend_on_enrollment_page" : time.time() - TIME
+            "Please confirm whether you have read our Program Brochure before booking the Enrollment Interview*": len(read_brochure)
         }
         validate_form(vals, check, fname, lname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure)
 
@@ -202,18 +201,19 @@ def create_contact_and_deal(prop, is_SDR):
     
 def send_to_hubspot(lname, fname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure, ts, check, perc_score, score, vsl):
     data_dict = {"email": email,   #string
-                        "firstname": fname,           #string
-                        "lastname": lname,          #string
-                        "phone": f"+{country_code.split('+')[-1]}-{phone_number}",
-                        "jobtitle": occupation,
-                        "what_s_your_goal_": long_question_response,
-                        "what_best_describes_your_financial_situation_":has_money,
-                        "please_confirm_you_have_read_our_program_brochure_before_booking_the_enrollment_interview": read_brochure,
-                        "i_will_be_ready_for_the_call": str(check).lower(),
-                        "lead_score": score,
-                        "lead_percentile_score": perc_score,
-                        "vsl_source": vsl,
-                         "country": country_code.split(":")[0]
+                "firstname": fname,           #string
+                "lastname": lname,          #string
+                "phone": f"+{country_code.split('+')[-1]}-{phone_number}",
+                "jobtitle": occupation,
+                "what_s_your_goal_": long_question_response,
+                "what_best_describes_your_financial_situation_":has_money,
+                "please_confirm_you_have_read_our_program_brochure_before_booking_the_enrollment_interview": read_brochure,
+                "i_will_be_ready_for_the_call": str(check).lower(),
+                "lead_score": score,
+                "lead_percentile_score": perc_score,
+                "vsl_source": vsl,
+                 "country": country_code.split(":")[0],
+                "time_spend_on_enrollment_page" : time.time() - TIME
                          }
     is_SDR = perc_score <= THRESH
     create_contact_and_deal(data_dict, is_SDR)
