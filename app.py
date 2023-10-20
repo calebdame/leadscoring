@@ -61,7 +61,7 @@ def display_header():
         
 ### You're about to book a call with a friendly enrollment advisor inside Jay Shetty Coaching Certification School! 
 
-####This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.""")
+#### This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.""")
     with main_columns[1]:
         st.image("js_profile.png")
         st.markdown(hide_img_fs, unsafe_allow_html=True)
