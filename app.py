@@ -10,6 +10,9 @@ import time
 import requests
 import json
 from variables import *
+import time
+
+TIME = time.time()
 
 def nav_to(url):
     nav_script = """
@@ -117,7 +120,8 @@ def process_form(fname, lname, country_code, phone_number, email, occupation, lo
             "What is your Occupation?*": len(occupation),
             "What’s happening in your life right now that has you potentially considering becoming a life coach? And ultimately what’s your goal?*": len(long_question_response),
             "What best describes your financial situation?*": len(has_money),
-            "Please confirm whether you have read our Program Brochure before booking the Enrollment Interview*": len(read_brochure)
+            "Please confirm whether you have read our Program Brochure before booking the Enrollment Interview*": len(read_brochure),
+            "time_spend_on_enrollment_page" : time.time() - TIME
         }
         validate_form(vals, check, fname, lname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure)
 
