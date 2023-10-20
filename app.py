@@ -7,7 +7,10 @@ from featurizer import *
 import re
 import os
 import time
+import requests
+import json
 
+THRESH = 49
 UTMS = [
     f'booking-{j}-{i}' for i in ["be", "a", "f", "s"] for j in ["rnc", "c2c", "ovsl"]
 ] + ['booking-amb', 'jscs-instant-book', 'booking-be', 'booking-pathway', 'booking-funnel']
@@ -132,8 +135,7 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
         f = Featurizer(*features)
         feats = f.generate_feature_dict()
         score, int_score = model.predict([feats])
-        thresh = 49
-        bad = "" if int_score > thresh else "u-"
+        bad = "" if int_score > THRESH else "u-"
         vsl = st.experimental_get_query_params().get("utm_campaign",["None"])[0]
         if vsl in UTMS:
             url = f"https://pages.jayshettycoaching.com/" + bad + vsl + "/"
@@ -152,12 +154,47 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
         error_message = generate_error_message(vals, check)
         st.error(error_message, icon="🚨")
 
-def send_to_hubspot(lname, fname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure, ts, check, perc_score, score, vsl):
+def create_contact_and_deal(prop, is_SDR):
+    url = 'https://api.hubapi.com/crm/'
+    headers = {'Content-Type':'application/json','Authorization': f'Bearer {os.environ["access_token"]}'}
+    r = requests.post(
+        data=json.dumps({"properties": prop}), 
+        url=f"{url}v3/objects/contacts", headers=headers
+    )
+    st.success(r.text)
+    if r.status_code == 201:
+        contact_id = json.loads(r.text)["id"]
+    else:
+        contact_id = json.loads(r.text)['message'].split("ID: ")[-1]
+        r = requests.patch(
+            data=json.dumps({"properties": {i:j for i,j in prop.items() if i!="email"}}), 
+            url=f"{url}v3/objects/{contact_id}", headers=headers
+        )
+        st.success(r.text)
+        
+    deal_data = {
+        "amount": "7400.00",
+        "dealname": f"{prop['firstname']} - {prop['email']} - Enrollment Interview",
+        "pipeline": "42444382" if is_SDR else "default",
+        "dealstage": "89331280" if is_SDR else "appointmentscheduled"
+    }
+    
+    r = requests.post(
+        data=json.dumps({"properties": deal_data}), 
+        url=f"{url}v3/objects/deals", headers=headers
+    )
+    st.success(r.text)
 
-    api_client = HubSpot(access_token=os.environ["access_token"])
-    try:
-        simple_public_object_input_for_create = SimplePublicObjectInputForCreate(
-            properties={"email": email,   #string
+    deal_id = json.loads(r.text)["id"]
+
+    r = requests.put(
+        url=f"{url}v4/objects/contact/{contact_id}/associations/default/deal/{deal_id}", headers=headers
+    )
+    st.success(r.text)
+    pass
+    
+def send_to_hubspot(lname, fname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure, ts, check, perc_score, score, vsl):
+    data_dict = {"email": email,   #string
                         "firstname": fname,           #string
                         "lastname": lname,          #string
                         "phone": f"+{country_code.split('+')[-1]}-{phone_number}",
@@ -171,12 +208,8 @@ def send_to_hubspot(lname, fname, country_code, phone_number, email, occupation,
                         "vsl_source": vsl,
                          "country": country_code.split(":")[0]
                          }
-        )
-        api_response = api_client.crm.contacts.basic_api.create(
-            simple_public_object_input_for_create=simple_public_object_input_for_create
-        )
-    except ApiException as e:
-        st.markdown("Exception when creating contact: %s\n" % e)
+    is_SDR = perc_score <= THRESH
+    create_contact_and_deal(data_dict, is_SDR)
 
 def generate_error_message(vals, check):
     error = "**Please be sure to complete the following fields:**"
