@@ -141,6 +141,7 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
             url = f"https://pages.jayshettycoaching.com/" + bad + vsl + "/"
         else:
             url = "https://pages.jayshettycoaching.com/" + bad + "booking-rnc-be/"
+        url = url + f"?email={email}&name={fname}+{lname}"
         send_to_hubspot(
             lname, fname, country_code, phone_number, 
             email, occupation, long_question_response, 
