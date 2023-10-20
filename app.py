@@ -213,7 +213,7 @@ def send_to_hubspot(lname, fname, country_code, phone_number, email, occupation,
                 "lead_percentile_score": perc_score,
                 "vsl_source": vsl,
                  "country": country_code.split(":")[0],
-                "time_spend_on_enrollment_page" : time.time() - TIME
+                "time_on_enrollment_page" : time.time() - TIME
                          }
     is_SDR = perc_score <= THRESH
     create_contact_and_deal(data_dict, is_SDR)
