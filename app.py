@@ -9,11 +9,7 @@ import os
 import time
 import requests
 import json
-
-THRESH = 49
-UTMS = [
-    f'booking-{j}-{i}' for i in ["be", "a", "f", "s"] for j in ["rnc", "c2c", "ovsl"]
-] + ['booking-amb', 'jscs-instant-book', 'booking-be', 'booking-pathway', 'booking-funnel']
+from variables import *
 
 def nav_to(url):
     nav_script = """
@@ -63,13 +59,15 @@ def display_header():
     with main_columns[0]:
         st.markdown("""# CONGRATULATIONS!
         
-### You're about to book a call with a friendly enrollment advisor inside Jay Shetty Coaching Certification School! """)
+### You're about to book a call with a friendly enrollment advisor inside Jay Shetty Coaching Certification School! 
+
+####This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.""")
     with main_columns[1]:
         st.image("js_profile.png")
         st.markdown(hide_img_fs, unsafe_allow_html=True)
 
 def display_main_content():
-    st.markdown("<div align=\"center\">This call will be your gateway to find out more about this program and answer any questions you have! We're excited for you to take this step and look forward to speaking with you.</div><br>", unsafe_allow_html=True)
+    # st.markdown("<div align=\"center\"></div><br>", unsafe_allow_html=True)
     st.markdown("##### Provide your information below:")
     with st.form("Answers"):
         fname, lname, country_code, phone_number = get_user_details()
@@ -119,7 +117,7 @@ def process_form(fname, lname, country_code, phone_number, email, occupation, lo
             "What is your Occupation?*": len(occupation),
             "What’s happening in your life right now that has you potentially considering becoming a life coach? And ultimately what’s your goal?*": len(long_question_response),
             "What best describes your financial situation?*": len(has_money),
-            "Please confirm you have read our Program Brochure before booking the Enrollment Interview*": len(read_brochure)
+            "Please confirm whether you have read our Program Brochure before booking the Enrollment Interview*": len(read_brochure)
         }
         validate_form(vals, check, fname, lname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure)
 
@@ -174,7 +172,7 @@ def create_contact_and_deal(prop, is_SDR):
         st.success(r.text)
         
     deal_data = {
-        "amount": "7400.00",
+        "amount": AMOUNT,
         "dealname": f"{prop['firstname']} - {prop['email']} - Enrollment Interview",
         "pipeline": "42444382" if is_SDR else "default",
         "dealstage": "89331280" if is_SDR else "appointmentscheduled",
