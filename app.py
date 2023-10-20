@@ -176,7 +176,9 @@ def create_contact_and_deal(prop, is_SDR):
         "amount": "7400.00",
         "dealname": f"{prop['firstname']} - {prop['email']} - Enrollment Interview",
         "pipeline": "42444382" if is_SDR else "default",
-        "dealstage": "89331280" if is_SDR else "appointmentscheduled"
+        "dealstage": "89331280" if is_SDR else "appointmentscheduled",
+        "raw_score": prop['lead_score'],
+        "percentile_score": prop['lead_percentile_score'] 
     }
     
     r = requests.post(
