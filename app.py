@@ -307,7 +307,7 @@ def main():
     set_streamlit_config()
     display_header()
     display_main_content()
-    st.success(st.state_session)
+    st.success(st.session_state)
     display_footer()
 
 if __name__ == "__main__":
