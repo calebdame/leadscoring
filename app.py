@@ -37,12 +37,13 @@ if 'IP' not in st.session_state:
     st.session_state['IP'] = client_ip()
 elif st.session_state['IP'] is None:
     st.session_state['IP'] = client_ip()
+elif 'IPDATA' not in st.session_state and st.session_state['IP'] != "":
+    st.session_state['IPDATA'] = requests.get(f"https://freeipapi.com/api/json/{st.session_state['IP']}").text
 
 if 'UAS' not in st.session_state:
     st.session_state['UAS'] = get_user_agent()
 elif st.session_state['UAS'] is None:
     st.session_state['UAS'] = get_user_agent()
-
 
 def nav_to(url):
     nav_script = """
