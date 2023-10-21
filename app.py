@@ -255,16 +255,6 @@ def display_footer():
     '''
     st.markdown(maglr, unsafe_allow_html=True)
 
-import platform
-import subprocess
-
-def get_python_version():
-    return platform.python_version()
-
-def get_installed_packages():
-    result = subprocess.run(['pip', 'freeze'], stdout=subprocess.PIPE)
-    return result.stdout.decode('utf-8')
-
 def main():
     set_streamlit_config()
     display_header()
@@ -273,6 +263,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    st.write(f"Python Version: {get_python_version()}")
-    st.write("Installed Packages:")
-    st.text_area("", get_installed_packages(), height=300)
