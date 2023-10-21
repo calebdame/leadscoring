@@ -188,6 +188,21 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
         st.error(error_message, icon="🚨")
 
 def create_contact_and_deal(prop, is_SDR):
+
+    if 'IPDATA' in st.session_state:
+        if st.session_state['IPDATA'] is not None and st.session_state['IPDATA'] != "":
+            prop["ip_data"] = st.session_state["IPDATA"]
+            try:
+                temp_dict = json.loads(prop["ip_data"])
+                prop["ip_latitude"] = temp_dict['latitude']
+                prop["ip_longitude"] = temp_dict['longitude']
+                prop["ip_version"] = temp_dict['ipVersion']
+        except:
+            fail = True
+    if 'UAS' in st.session_state:
+        if st.session_state['UAS'] is not None and st.session_state['UAS'] != "":
+            prop["ip_uas"] = st.session_state['UAS']
+    
     url = 'https://api.hubapi.com/crm/'
     headers = {'Content-Type':'application/json','Authorization': f'Bearer {os.environ["access_token"]}'}
     r = requests.post(
