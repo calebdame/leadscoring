@@ -1,4 +1,4 @@
 scikit-learn==0.24.2
-nltk
-numpy
-streamlit
+nltk==3.8.1
+numpy==1.26.1
+streamlit==1.27.2
