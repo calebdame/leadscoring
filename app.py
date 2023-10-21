@@ -8,9 +8,41 @@ import requests
 import json
 from variables import *
 import time
+from streamlit_javascript import st_javascript
+
+def client_ip():
+    url = 'https://api.ipify.org?format=json'
+    script = (f'await fetch("{url}").then('
+                'function(response) {'
+                    'return response.json();'
+                '})')
+    try:
+        result = st_javascript(script)
+        if isinstance(result, dict) and 'ip' in result:
+            return result['ip']
+        else: return ""
+    except: return None
+
+def get_user_agent():
+    try:
+        user_agent = st_javascript(('navigator.userAgent'))
+        if user_agent: return user_agent
+        else: return ""
+    except: return None
 
 if 'TIME' not in st.session_state:
     st.session_state['TIME'] = time.time()
+
+if 'IP' not in st.session_state:
+    st.session_state['IP'] = client_ip()
+elif st.session_state['IP'] is None:
+    st.session_state['IP'] = client_ip()
+
+if 'UAS' not in st.session_state:
+    st.session_state['UAS'] = get_user_agent()
+elif st.session_state['UAS'] is None:
+    st.session_state['UAS'] = get_user_agent()
+
 
 def nav_to(url):
     nav_script = """
@@ -259,6 +291,7 @@ def main():
     set_streamlit_config()
     display_header()
     display_main_content()
+    st.success(st.state_session)
     display_footer()
 
 if __name__ == "__main__":
