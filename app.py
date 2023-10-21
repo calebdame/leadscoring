@@ -1,6 +1,3 @@
-from hubspot import HubSpot
-from hubspot.crm.contacts import SimplePublicObjectInputForCreate
-from hubspot.crm.contacts.exceptions import ApiException
 import streamlit as st
 import datetime
 from featurizer import *
