@@ -197,8 +197,8 @@ def create_contact_and_deal(prop, is_SDR):
                 prop["ip_latitude"] = temp_dict['latitude']
                 prop["ip_longitude"] = temp_dict['longitude']
                 prop["ip_version"] = temp_dict['ipVersion']
-        except:
-            fail = True
+            except:
+                fail = True
     if 'UAS' in st.session_state:
         if st.session_state['UAS'] is not None and st.session_state['UAS'] != "":
             prop["ip_uas"] = st.session_state['UAS']
