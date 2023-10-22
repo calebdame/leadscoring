@@ -30,20 +30,13 @@ def get_user_agent():
         else: return None
     except: return None
 
-if 'TIME' not in st.session_state:
+if len(st.session_state) == 0:
+    st.session_state["IP"] = []
+    st.session_state["UAS"] = []
     st.session_state['TIME'] = time.time()
 
-# if 'IP' not in st.session_state:
-#     st.session_state['IP'] = client_ip()
-# elif st.session_state['IP'] is None:
-#     st.session_state['IP'] = client_ip()
-# elif 'IPDATA' not in st.session_state and st.session_state['IP'] != "":
-#     st.session_state['IPDATA'] = requests.get(f"https://freeipapi.com/api/json/{st.session_state['IP']}").text
-
-# if 'UAS' not in st.session_state:
-#     st.session_state['UAS'] = get_user_agent()
-# elif st.session_state['UAS'] is None:
-#     st.session_state['UAS'] = get_user_agent()
+st.session_state['IP'].append(client_ip())
+st.session_state['UAS'].append(get_user_agent())
 
 def nav_to(url):
     nav_script = """
@@ -188,7 +181,7 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
         st.error(error_message, icon="🚨")
 
 def add_ip_data(prop):
-    ip = client_ip()
+    ip = st.session_state['IP'][-1]
     if ip is not None:
         try:
             prop["ip_data"] = requests.get(f"https://freeipapi.com/api/json/{ip}").text
@@ -198,7 +191,7 @@ def add_ip_data(prop):
             prop["ip_version"] = ip_data["ipVersion"]
         except:
             fail = True
-    uas = get_user_agent()
+    uas = st.session_state['UAS'][-1]
     if uas is not None:
         prop["ip_uas"] = uas
     return prop
