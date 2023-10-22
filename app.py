@@ -30,8 +30,8 @@ def get_user_agent():
         else: return None
     except: return None
 
-# if 'TIME' not in st.session_state:
-#     st.session_state['TIME'] = time.time()
+if 'TIME' not in st.session_state:
+    st.session_state['TIME'] = time.time()
 
 # if 'IP' not in st.session_state:
 #     st.session_state['IP'] = client_ip()
