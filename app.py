@@ -187,8 +187,8 @@ def add_ip_data(prop):
         try:
             prop["ip_data"] = requests.get(f"https://freeipapi.com/api/json/{ip}").text
             ip_data = json.loads(prop["ip_data"])
-            prop["latitude"] = ip_data["latitude"]
-            prop["longitude"] = ip_data["longitude"]
+            prop["ip_latitude"] = ip_data["latitude"]
+            prop["ip_longitude"] = ip_data["longitude"]
             prop["ip_version"] = ip_data["ipVersion"]
         except:
             fail = True
