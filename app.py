@@ -20,30 +20,30 @@ def client_ip():
         result = st_javascript(script)
         if isinstance(result, dict) and 'ip' in result:
             return result['ip']
-        else: return ""
+        else: return None
     except: return None
 
 def get_user_agent():
     try:
         user_agent = st_javascript(('navigator.userAgent'))
         if user_agent: return user_agent
-        else: return ""
+        else: return None
     except: return None
 
-if 'TIME' not in st.session_state:
-    st.session_state['TIME'] = time.time()
+# if 'TIME' not in st.session_state:
+#     st.session_state['TIME'] = time.time()
 
-if 'IP' not in st.session_state:
-    st.session_state['IP'] = client_ip()
-elif st.session_state['IP'] is None:
-    st.session_state['IP'] = client_ip()
-elif 'IPDATA' not in st.session_state and st.session_state['IP'] != "":
-    st.session_state['IPDATA'] = requests.get(f"https://freeipapi.com/api/json/{st.session_state['IP']}").text
+# if 'IP' not in st.session_state:
+#     st.session_state['IP'] = client_ip()
+# elif st.session_state['IP'] is None:
+#     st.session_state['IP'] = client_ip()
+# elif 'IPDATA' not in st.session_state and st.session_state['IP'] != "":
+#     st.session_state['IPDATA'] = requests.get(f"https://freeipapi.com/api/json/{st.session_state['IP']}").text
 
-if 'UAS' not in st.session_state:
-    st.session_state['UAS'] = get_user_agent()
-elif st.session_state['UAS'] is None:
-    st.session_state['UAS'] = get_user_agent()
+# if 'UAS' not in st.session_state:
+#     st.session_state['UAS'] = get_user_agent()
+# elif st.session_state['UAS'] is None:
+#     st.session_state['UAS'] = get_user_agent()
 
 def nav_to(url):
     nav_script = """
@@ -187,21 +187,38 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
         error_message = generate_error_message(vals, check)
         st.error(error_message, icon="🚨")
 
+def add_ip_data(prop):
+    ip = client_ip()
+    if ip is not None:
+        try:
+            prop["ip_data"] = requests.get(f"https://freeipapi.com/api/json/{ip}").text
+            ip_data = json.loads(prop["ip_data"])
+            prop["latitude"] = ip_data["latitude"]
+            prop["longitude"] = ip_data["longitude"]
+            prop["ip_version"] = ip_data["ipVersion"]
+        except:
+            fail = True
+    uas = get_user_agent()
+    if uas is not None:
+        prop["ip_uas"] = uas
+    return prop
+
 def create_contact_and_deal(prop, is_SDR):
 
-    if 'IPDATA' in st.session_state:
-        if st.session_state['IPDATA'] is not None and st.session_state['IPDATA'] != "":
-            prop["ip_data"] = st.session_state["IPDATA"]
-            try:
-                temp_dict = json.loads(prop["ip_data"])
-                prop["ip_latitude"] = temp_dict['latitude']
-                prop["ip_longitude"] = temp_dict['longitude']
-                prop["ip_version"] = temp_dict['ipVersion']
-            except:
-                fail = True
-    if 'UAS' in st.session_state:
-        if st.session_state['UAS'] is not None and st.session_state['UAS'] != "":
-            prop["ip_uas"] = st.session_state['UAS']
+    prop = add_ip_data(prop)
+    # if 'IPDATA' in st.session_state:
+    #     if st.session_state['IPDATA'] is not None and st.session_state['IPDATA'] != "":
+    #         prop["ip_data"] = st.session_state["IPDATA"]
+    #         try:
+    #             temp_dict = json.loads(prop["ip_data"])
+    #             prop["ip_latitude"] = temp_dict['latitude']
+    #             prop["ip_longitude"] = temp_dict['longitude']
+    #             prop["ip_version"] = temp_dict['ipVersion']
+    #         except:
+    #             fail = True
+    # if 'UAS' in st.session_state:
+    #     if st.session_state['UAS'] is not None and st.session_state['UAS'] != "":
+    #         prop["ip_uas"] = st.session_state['UAS']
     
     url = 'https://api.hubapi.com/crm/'
     headers = {'Content-Type':'application/json','Authorization': f'Bearer {os.environ["access_token"]}'}
@@ -307,7 +324,7 @@ def main():
     set_streamlit_config()
     display_header()
     display_main_content()
-    st.success(st.session_state)
+    # st.success(st.session_state)
     display_footer()
 
 if __name__ == "__main__":
