@@ -30,14 +30,6 @@ def get_user_agent():
         else: return None
     except: return None
 
-if len(st.session_state) == 0:
-    st.session_state["IP"] = []
-    st.session_state["UAS"] = []
-    st.session_state['TIME'] = time.time()
-
-st.session_state['IP'].append(client_ip())
-st.session_state['UAS'].append(get_user_agent())
-
 def nav_to(url):
     nav_script = """
         <meta http-equiv="refresh" content="0; url='%s'">
@@ -54,8 +46,17 @@ def set_streamlit_config():
         """
     st.set_page_config(page_title="Jay Shetty Sign Up", page_icon="jsicon.png")
     st.markdown(hide_st_style, unsafe_allow_html=True)
+    
     set_max_width(950)
     load_external_styles()
+    
+    if len(st.session_state) == 0:
+        st.session_state["IP"] = []
+        st.session_state["UAS"] = []
+        st.session_state['TIME'] = time.time()
+    
+    st.session_state['IP'].append(client_ip())
+    st.session_state['UAS'].append(get_user_agent())
 
 def set_max_width(max_width):
     st.markdown(
