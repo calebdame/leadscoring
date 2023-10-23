@@ -37,9 +37,20 @@ def get_screen_resolution():
         if screen_res:
             width = screen_res.get('width')
             height = screen_res.get('height')
-            formatted_res = f"{width}x{height}"
+            return f"{width}x{height}"
     except:
         return None
+
+def get_screen_dimensions():
+    script = ('{width: window.screen.width, height: window.screen.height}')
+    try:
+        dimensions = st_javascript(script)
+        if dimensions:
+            width = dimensions.get('width')
+            height = dimensions.get('height')
+            return f"{width}x{height}"
+    except:
+        pass
 
 def nav_to(url):
     nav_script = """
