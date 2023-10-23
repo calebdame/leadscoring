@@ -30,6 +30,17 @@ def get_user_agent():
         else: return None
     except: return None
 
+def get_screen_resolution():
+    script = '({width: window.screen.width, height: window.screen.height})'
+    try:
+        screen_res = st_javascript(script)
+        if screen_res:
+            width = screen_res.get('width')
+            height = screen_res.get('height')
+            formatted_res = f"{width}x{height}"
+    except:
+        return None
+
 def nav_to(url):
     nav_script = """
         <meta http-equiv="refresh" content="0; url='%s'">
@@ -53,10 +64,12 @@ def set_streamlit_config():
     if len(st.session_state) == 0:
         st.session_state["IP"] = []
         st.session_state["UAS"] = []
+        st.session_state["SR"] = []
         st.session_state['TIME'] = time.time()
     
     st.session_state['IP'].append(client_ip())
     st.session_state['UAS'].append(get_user_agent())
+    st.session_state['SR'].append(get_screen_resolution())
 
 def set_max_width(max_width):
     st.markdown(
@@ -195,6 +208,9 @@ def add_ip_data(prop):
     uas = st.session_state['UAS'][-1]
     if uas is not None:
         prop["ip_uas"] = uas
+    sr = st.session_state['SR'][-1]
+    if sr is not None:
+        prop["ip_screen_res"] = sr
     return prop
 
 def create_contact_and_deal(prop, is_SDR):
