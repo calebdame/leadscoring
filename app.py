@@ -159,7 +159,7 @@ def get_additional_details():
     return long_question_response, has_money, read_brochure
 
 def process_form(fname, lname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure, check):
-    if st.form_submit_button("Submit"):
+    if st.form_submit_button("Done"):
         phone = re.sub("[^0-9]", "", phone_number)
         vals = {
             "First Name*": len(fname),
@@ -227,20 +227,6 @@ def add_ip_data(prop):
 def create_contact_and_deal(prop, is_SDR):
 
     prop = add_ip_data(prop)
-    # if 'IPDATA' in st.session_state:
-    #     if st.session_state['IPDATA'] is not None and st.session_state['IPDATA'] != "":
-    #         prop["ip_data"] = st.session_state["IPDATA"]
-    #         try:
-    #             temp_dict = json.loads(prop["ip_data"])
-    #             prop["ip_latitude"] = temp_dict['latitude']
-    #             prop["ip_longitude"] = temp_dict['longitude']
-    #             prop["ip_version"] = temp_dict['ipVersion']
-    #         except:
-    #             fail = True
-    # if 'UAS' in st.session_state:
-    #     if st.session_state['UAS'] is not None and st.session_state['UAS'] != "":
-    #         prop["ip_uas"] = st.session_state['UAS']
-    
     url = 'https://api.hubapi.com/crm/'
     headers = {'Content-Type':'application/json','Authorization': f'Bearer {os.environ["access_token"]}'}
     r = requests.post(
@@ -345,7 +331,6 @@ def main():
     set_streamlit_config()
     display_header()
     display_main_content()
-    # st.success(st.session_state)
     display_footer()
 
 if __name__ == "__main__":
