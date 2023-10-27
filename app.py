@@ -265,7 +265,7 @@ def create_contact_and_deal(prop, is_SDR):
     r = requests.put(
         url=f"{url}v4/objects/contact/{contact_id}/associations/default/deal/{deal_id}", headers=headers
     )
-    st.(r.text)
+    st.success(r.text)
     pass
     
 def send_to_hubspot(lname, fname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure, ts, check, perc_score, score, vsl):
