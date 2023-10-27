@@ -185,22 +185,20 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
         f = Featurizer(*features)
         feats = f.generate_feature_dict()
         score, int_score = model.predict([feats])
-        bad = "" if int_score > THRESH else "u-"
         vsl = st.experimental_get_query_params().get("utm_campaign",["None"])[0]
-        if vsl in UTMS:
-            url = f"https://pages.jayshettycoaching.com/" + bad + vsl + "/"
+        if int_score > THRESH:
+            url = f"https://pages.jayshettycoaching.com/{vsl}/" if vsl in UTMS else "https://pages.jayshettycoaching.com/booking-rnc-be/"
+            url = url + f"?email={email}&name={fname}+{lname}"
         else:
-            url = "https://pages.jayshettycoaching.com/" + bad + "booking-rnc-be/"
-        url = url + f"?email={email}&name={fname}+{lname}"
+            url = "https://pages.jayshettycoaching.com/application-confirmation/"
         send_to_hubspot(
             lname, fname, country_code, phone_number, 
             email, occupation, long_question_response, 
             has_money, read_brochure, ts, check, 
             int_score, score, vsl
         )
-        time.sleep(0.25)
-        st.success(f"Thank you for submitting the survey!\n\nFind your calendar invite below:\n\n[Click Here]({url})", icon="✅")
-        # nav_to(url)
+        time.sleep(10)
+        nav_to(url)
     else:
         error_message = generate_error_message(vals, check)
         st.error(error_message, icon="🚨")
@@ -233,7 +231,7 @@ def create_contact_and_deal(prop, is_SDR):
         data=json.dumps({"properties": prop}), 
         url=f"{url}v3/objects/contacts", headers=headers
     )
-    st.success(r.text)
+    #st.success(r.text)
     if r.status_code == 201:
         contact_id = json.loads(r.text)["id"]
     else:
@@ -242,7 +240,7 @@ def create_contact_and_deal(prop, is_SDR):
             data=json.dumps({"properties": {i:j for i,j in prop.items() if i!="email"}}), 
             url=f"{url}v3/objects/{contact_id}", headers=headers
         )
-        st.success(r.text)
+        # st.success(r.text)
         
     deal_data = {
         "amount": AMOUNT,
@@ -250,7 +248,8 @@ def create_contact_and_deal(prop, is_SDR):
         "pipeline": "42444382" if is_SDR else "default",
         "dealstage": "89331280" if is_SDR else "appointmentscheduled",
         "raw_score": prop['lead_score'],
-        "percentile_score": prop['lead_percentile_score'] 
+        "percentile_score": prop['lead_percentile_score'],
+        "email" : prop["email"]
     }
     if is_SDR:
         deal_data["dealname"] = f"{prop['firstname']} - {prop['lastname']} - Booking Attempt"
@@ -266,7 +265,7 @@ def create_contact_and_deal(prop, is_SDR):
     r = requests.put(
         url=f"{url}v4/objects/contact/{contact_id}/associations/default/deal/{deal_id}", headers=headers
     )
-    st.success(r.text)
+    st.(r.text)
     pass
     
 def send_to_hubspot(lname, fname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure, ts, check, perc_score, score, vsl):
