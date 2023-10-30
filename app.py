@@ -175,6 +175,7 @@ def process_form(fname, lname, country_code, phone_number, email, occupation, lo
 
 def validate_form(vals, check, fname, lname, country_code, phone_number, email, occupation, long_question_response, has_money, read_brochure):
     if all(i != 0 for i in vals.values()) and check and (vals["Phone Number*"] >= 7) and (vals["Phone Number*"] <= 15):
+        
         ts = datetime.datetime.now()
         name = fname + " " + lname
         features = [
@@ -182,13 +183,16 @@ def validate_form(vals, check, fname, lname, country_code, phone_number, email, 
             long_question_response, int("cash" in has_money),
             int("Yes" in read_brochure), ts
         ]
+        
         f = Featurizer(*features)
         feats = f.generate_feature_dict()
         score, int_score = model.predict([feats])
+        
         vsl = st.experimental_get_query_params().get("utm_campaign",["None"])[0]
+        vsl = "booking-misc" if vsl not in UTM_TO_URL else vsl
+        
         if int_score > THRESH:
-            url = f"https://pages.jayshettycoaching.com/{vsl}/" if vsl in UTMS else "https://pages.jayshettycoaching.com/booking-rnc-be/"
-            url = url + f"?email={email}&name={fname}+{lname}"
+            url = f"https://pages.jayshettycoaching.com/{UTM_TO_URL[vsl]}/?name={fname}&last%20name={lname}&email={email}"
         else:
             url = "https://pages.jayshettycoaching.com/application-confirmation/"
         send_to_hubspot(
